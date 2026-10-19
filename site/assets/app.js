@@ -228,7 +228,9 @@ document.querySelectorAll('.viewport').forEach(vp => {
     try {
       const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(f)).toString() });
       if (!r.ok) throw new Error();
-      step++; render();
+      step++; render(); f.classList.add('sent');
+      // Danke-Meldung ins Bild holen: das Formular wird kürzer, sonst bleibt man weiter unten stehen
+      window.scrollTo({ top: f.getBoundingClientRect().top + scrollY - 96, behavior: 'instant' });
     } catch {
       err.textContent = 'Das Senden hat nicht geklappt. Bitte versuch es noch einmal oder schreib uns an info@homepagekonfigurator.de.';
       next.textContent = 'Konfiguration absenden';

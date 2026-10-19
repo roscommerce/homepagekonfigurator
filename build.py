@@ -911,6 +911,7 @@ def konfigurator(b):
       </fieldset>
 
       <div class="pane done-msg" data-step="8">
+        <span class="done-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
         <p class="q">Danke, deine Konfiguration ist da.</p>
         <p>Wir schauen uns deine Angaben an und melden uns per E-Mail, falls wir noch etwas brauchen, zum Beispiel dein Logo oder Fotos. Deinen Entwurf bekommst du innerhalb von 5 Werktagen.</p>
       </div>

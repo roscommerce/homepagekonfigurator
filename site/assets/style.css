@@ -819,3 +819,7 @@ main section[id]{scroll-margin-top:96px}
 .wiz-branche a{color:var(--accent)}
 @media(max-width:599px){.start.sec{padding-top:40px}}
 .wizard .anchor{scroll-margin-top:122px}
+.done-msg{padding:6px 0 0}
+.done-ic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--soft);color:var(--accent);margin-bottom:18px}
+.done-ic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.wizard.sent .err{display:none}
