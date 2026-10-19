@@ -19,7 +19,7 @@ Machbarkeit:
   Kontaktformular-Mails laufen über unseren Mail-Dienst an die normale Adresse des Kunden (kein Kunden-Mailkonto nötig)
   Blog-Login: gemeinsamer Redaktionsbereich auf dem eigenen Server, einmal gebaut, für alle Kunden
   Preismodell (19.10.2026): Homepage kaufen ab 499 € + Hosting 9,99 €/Monat (Pflicht, 12 Monate Mindestlaufzeit)
-  Extras: Seite 49,99 · Kontakt 99 · Blog 149 · Selbstpflege/Anfrage 149 · Termin/Karte/Galerie (bis 20 Bilder) 49 · Google-Bewertungen 99 · Texte & Bilder 39/Seite
+  Extras: Seite 49,99 · Kontakt 99 · Blog 149 · Selbstpflege/Anfrage 149 · Termin/Karte/Galerie (bis 20 Bilder) 49 · Google-Bewertungen 99 · Texte 39/Seite · Bilder 39/Seite
   Monatlich: Domain neu/Umzug 4,99 · Monitoring 4,99 · Wartung 14,99 · Sorglos 17,99
   Keine E-Mail-Postfächer · Rechtstexte liefert der Kunde (wir geben ihm das Technik-Infoblatt aus vorlagen/)
   Monitoring: stündlicher Abruf vom eigenen Server, Benachrichtigung an den Inhaber · Terminbuchung: Einbindung externes Tool des Kunden
@@ -515,6 +515,7 @@ GRUNDPREIS = 499.0      # einmalig: Startseite + bis zu 3 Rechtsseiten
 HOSTING = 9.99          # monatlich, Pflicht
 SEITE = 49.99           # einmalig je weitere Inhaltsseite
 TEXT_PRO_SEITE = 39.0   # einmalig je Seite, wenn wir die Texte schreiben
+BILD_PRO_SEITE = 39.0   # einmalig je Seite, wenn wir lizenzfreie Bilder aussuchen
 
 # Schlüssel, Name, Preis einmalig, Art, Beschreibung
 FUNKTIONEN = [
@@ -561,7 +562,8 @@ TIPS = {
     "inhaltsseite": ("Weitere Seite", "Eine zusätzliche Seite mit Text und Bildern, zum Beispiel „Leistungen“ oder „Team“. Sie erscheint im Menü deiner Homepage."),
     "einbindung": ("Einbindung", "Bei einer Einbindung zeigen wir ein Werkzeug eines anderen Anbieters auf deiner Seite an, zum Beispiel deinen Terminkalender oder eine Karte. Damit der Datenschutz stimmt, lädt es erst, wenn der Besucher darauf klickt."),
     "blog": ("Blog", "Ein Bereich für Neuigkeiten. Du loggst dich ein, schreibst einen Beitrag, und er erscheint auf deiner Homepage."),
-    "texte": ("Texte & Bilder", "Wir schreiben die Texte für deine Seiten passend zu deiner Branche, auf Grundlage deiner Angaben und mit Unterstützung von KI. Hast du keine eigenen Fotos, nutzen wir passende lizenzfreie Bilder. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
+    "texte": ("Texte", "Wir schreiben die Texte für deine Seiten passend zu deiner Branche, auf Grundlage deiner Angaben und mit Unterstützung von KI. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
+    "bilder": ("Lizenzfreie Bilder", "Hast du keine eigenen Fotos, suchen wir passende lizenzfreie Bilder aus Bilddatenbanken aus und bereiten sie für deine Seite auf. Du darfst sie dauerhaft auf deiner Homepage nutzen."),
     "ssl": ("SSL", "SSL sorgt für eine verschlüsselte Verbindung. Besucher erkennen das am Schloss in der Adresszeile."),
 }
 
@@ -715,7 +717,8 @@ def pricing():
             ("Anfrageformular mit Foto-Upload", eur(149)), (f"Terminbuchung oder Anfahrtskarte {tip('einbindung')}", "je " + eur(49)),
             ("Bildergalerie<small>bis zu 20 Fotos</small>", eur(49)),
             ("Google-Bewertungen<small>ausgewählte echte Bewertungen mit Link zu deinem Google-Profil</small>", eur(99)),
-            (f"Texte &amp; Bilder für dich {tip('texte')}<small>Branchentexte mit KI erstellt, lizenzfreie Bilder, falls du keine eigenen hast</small>", eur(TEXT_PRO_SEITE) + " pro Seite")]
+            (f"Texte schreiben wir für dich {tip('texte')}<small>passend zu deiner Branche, mit KI erstellt</small>", eur(TEXT_PRO_SEITE) + " pro Seite"),
+            (f"Lizenzfreie Bilder für dich {tip('bilder')}<small>falls du keine eigenen Fotos hast</small>", eur(BILD_PRO_SEITE) + " pro Seite")]
     monthly = [(f"Neue Domain oder Umzug zu uns {tip('domain')}", eur(4.99)), ("Eigene Domain behalten", eur(0)),
                (f"Monitoring &amp; Ausfallmanagement {tip('monitoring')}", eur(4.99)), (f"Wartung {tip('wartung')}", eur(14.99))]
     li_inkl = "".join(f"<li>{CK}<span>{x}</span></li>" for x in inkl)
@@ -826,8 +829,8 @@ def konfigurator(b):
         ("Texte liefere ich", "Ich liefere die Texte", None, "", '<em class="pr">0 €</em>'),
         ("Texte schreibt ihr", f"Schreibt ihr die Texte für mich {tip('texte')}", "Passend zu deiner Branche, mit Unterstützung von KI erstellt. Du prüfst sie vor dem Onlinegang.", f' data-text="{TEXT_PRO_SEITE}"', f'<em class="pr">{eur(TEXT_PRO_SEITE)} pro Seite</em>')])
     fotos = choice("radio", "fotos", "fo", [
-        ("Eigene Fotos", "Ich habe eigene Fotos", None, "", ""),
-        ("Lizenzfreie Bilder", "Nutzt lizenzfreie Bilder", "Passende Fotos aus Bilddatenbanken, ohne Aufpreis.", "", '<em class="pr">0 €</em>')])
+        ("Eigene Fotos", "Ich habe eigene Fotos", None, "", '<em class="pr">0 €</em>'),
+        ("Lizenzfreie Bilder", f"Sucht ihr Bilder für mich aus {tip('bilder')}", "Passende lizenzfreie Fotos aus Bilddatenbanken, für jede Seite.", f' data-text="{BILD_PRO_SEITE}"', f'<em class="pr">{eur(BILD_PRO_SEITE)} pro Seite</em>')])
     stil = ('<div class="opts styles">'
             '<label><input type="radio" name="stil" id="st-0" value="Klar &amp; sachlich"><span class="o"><span class="sw"><i style="background:#eef0f3"></i><i style="background:#1c1f26"></i><i style="background:#3a6df0"></i></span>Klar &amp; sachlich<small>Viel Luft, ruhige Farben</small></span></label>'
             '<label><input type="radio" name="stil" id="st-1" value="Warm &amp; persönlich"><span class="o"><span class="sw"><i style="background:#f5e9e3"></i><i style="background:#d99f95"></i><i style="background:#3a1f2b"></i></span>Warm &amp; persönlich<small>Weich und einladend</small></span></label>'
@@ -942,7 +945,7 @@ FAQ = [
     ("Was ist, wenn mir der Entwurf nicht gefällt?", "Der Entwurf ist kostenlos und unverbindlich. Solange du nichts bestellt hast, zahlst du nichts. Nach der Bestellung sind zwei Korrekturrunden inklusive."),
     ("Was ist mit meiner Domain?", f"Du hast drei Möglichkeiten: Wir registrieren eine neue Domain auf deinen Namen ({eur(4.99)} im Monat). Du behältst deine Domain bei deinem Anbieter, dann schicken wir dir die Einstellungen zum Eintragen, das kostet nichts. Oder deine Domain zieht zu uns um ({eur(4.99)} im Monat)."),
     ("Gehört mir die Homepage?", "Ja. Nach der Bezahlung gehört die Homepage dir. Kündigst du das Hosting, bekommst du alle Dateien. Funktionen, die auf unserer Technik laufen, wie der Blog-Login, enden mit dem Hosting."),
-    ("Wer liefert Texte und Bilder?", f"Texte und Bilder lieferst du. Keine Zeit? Dann schreiben wir die Texte für {eur(TEXT_PRO_SEITE)} pro Seite, passend zu deiner Branche und mit Unterstützung von KI. Fehlen eigene Fotos, nutzen wir lizenzfreie Bilder ohne Aufpreis. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
+    ("Wer liefert Texte und Bilder?", f"Texte und Bilder lieferst du. Keine Zeit? Dann schreiben wir die Texte für {eur(TEXT_PRO_SEITE)} pro Seite, passend zu deiner Branche und mit Unterstützung von KI. Hast du keine eigenen Fotos, suchen wir für {eur(BILD_PRO_SEITE)} pro Seite passende lizenzfreie Bilder aus. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
     ("Wer kümmert sich um Impressum und Datenschutz?", "Die Seiten legen wir an, die Texte lieferst du, zum Beispiel aus einem Rechtstext-Generator. Eine Rechtsberatung leisten wir nicht. Wir sagen dir aber genau, welche Technik deine Seite nutzt, damit du sie dort eintragen kannst."),
     ("Kann ich später etwas ändern lassen?", "Mit dem Wartungspaket setzen wir bis zu 2 Text- und 2 Bildänderungen im Monat für dich um, in der Regel innerhalb von zwei Werktagen. Ohne Wartungspaket bekommst du für jeden Wunsch vorher einen Festpreis."),  # OFFEN: 2 Werktage
     ("Bekomme ich auch E-Mail-Postfächer?", "E-Mail-Postfächer sind nicht enthalten. Wir empfehlen dir einen passenden Anbieter und schicken dir eine Anleitung, wie du ihn mit deiner Domain verbindest."),
@@ -1269,7 +1272,7 @@ AGB = f"""
 <p>(1) Der Umfang unserer Leistungen ergibt sich aus deinem Angebot. Das Grundpaket umfasst die Gestaltung und technische Umsetzung einer Startseite sowie das Anlegen von bis zu drei Rechtsseiten (zum Beispiel Impressum, Datenschutzerklärung und AGB).</p>
 <p>(2) Weitere Inhaltsseiten, Funktionen (zum Beispiel Kontaktformular oder Blog) und Einbindungen von Diensten Dritter (zum Beispiel Terminbuchung oder Karte) sind nur enthalten, wenn sie im Angebot aufgeführt sind. Für Einbindungen brauchst du in der Regel ein eigenes Konto beim jeweiligen Anbieter; dessen Kosten und Bedingungen sind nicht Teil unseres Vertrags.</p>
 <p>(3) Nach der Bestellung erstellen wir die übrigen Seiten. Zwei Korrekturrunden sind enthalten. Danach schalten wir die Homepage nach deiner Freigabe online.</p>
-<p>(4) Wenn du den Texte-Service gebucht hast, erstellen wir die Werbetexte deiner Seiten auf Grundlage deiner Angaben und mit Unterstützung von KI. Fehlen eigene Fotos, verwenden wir lizenzfreie Bilder aus Bilddatenbanken. Rechtstexte schreiben wir nicht.</p>
+<p>(4) Wenn du den Texte-Service gebucht hast, erstellen wir die Werbetexte deiner Seiten auf Grundlage deiner Angaben und mit Unterstützung von KI. Wenn du den Bilder-Service gebucht hast, suchen wir lizenzfreie Bilder aus Bilddatenbanken aus. Rechtstexte schreiben wir nicht.</p>
 <p>(5) Du prüfst alle Inhalte vor der Freigabe. Für sachliche Angaben wie Leistungen, Preise, Öffnungszeiten, Qualifikationen und Zertifikate bist du verantwortlich, auch wenn wir die Texte formuliert haben.</p>
 
 <h2>§ 4 Hosting und Domain</h2>
@@ -1283,7 +1286,7 @@ AGB = f"""
 <p>(3) Änderungen außerhalb der Wartung und größere Wünsche bieten wir dir vorab zu einem Festpreis an.</p>
 
 <h2>§ 6 Deine Mitwirkung</h2>
-<p>(1) Du stellst uns die nötigen Inhalte wie Logo, Texte, Fotos und Angaben zu deinem Betrieb rechtzeitig zur Verfügung, soweit du nicht den Texte-Service oder lizenzfreie Bilder gewählt hast.</p>
+<p>(1) Du stellst uns die nötigen Inhalte wie Logo, Texte, Fotos und Angaben zu deinem Betrieb rechtzeitig zur Verfügung, soweit du nicht den Texte- oder Bilder-Service gebucht hast.</p>
 <p>(2) Du versicherst, dass du die Rechte an den Inhalten besitzt, die du uns überlässt, und dass ihre Nutzung keine Rechte Dritter verletzt. Wirst du deswegen von Dritten in Anspruch genommen, stellst du uns davon frei.</p>
 <p>(3) Für die Inhalte deiner Homepage, insbesondere für Impressum, Datenschutzerklärung und AGB, bist du verantwortlich. Die Texte dieser Rechtsseiten lieferst du. Wir teilen dir mit, welche technischen Dienste deine Homepage nutzt. Eine Rechtsberatung leisten wir nicht.</p>
 

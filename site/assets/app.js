@@ -144,11 +144,13 @@ document.querySelectorAll('.viewport').forEach(vp => {
     const w = +wi.value || 0;
     if (w) { once += w * SEITE; rows.push([w + (w === 1 ? ' weitere Seite' : ' weitere Seiten'), w * SEITE, false]); }
     f.querySelectorAll('input[name=funktionen]:checked').forEach(c => { once += +c.dataset.once; rows.push([c.value, +c.dataset.once, false]); });
-    const tx = f.querySelector('input[name=texte]:checked');
-    if (tx && tx.dataset.text) {
-      const n = 1 + seiten.length + w, v = n * +tx.dataset.text;
-      once += v; rows.push(['Texte für ' + n + (n === 1 ? ' Seite' : ' Seiten'), v, false]);
-    }
+    // Texte und Bilder: Preis je Seite (Startseite + gewählte + weitere Seiten)
+    [['texte', 'Texte'], ['fotos', 'Bilder']].forEach(([nm, label]) => {
+      const r = f.querySelector(`input[name=${nm}]:checked`);
+      if (!r || !r.dataset.text) return;
+      const n = 1 + seiten.length + w, v = n * +r.dataset.text;
+      once += v; rows.push([label + ' für ' + n + (n === 1 ? ' Seite' : ' Seiten'), v, false]);
+    });
     ['domain_option', 'service'].forEach(nm => {
       const r = f.querySelector(`input[name=${nm}]:checked`);
       if (r && +r.dataset.monthly) { month += +r.dataset.monthly; rows.push([r.value, +r.dataset.monthly, true]); }
