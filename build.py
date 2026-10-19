@@ -339,6 +339,10 @@ def mock(key, on=False, lazy=False):
             attrs = 'src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" ' + attrs.replace('src="', 'data-src="', 1).replace('srcset="', 'data-srcset="')
         return "<img " + attrs
     html = MOCK_IMG.sub(resp, html)
+    # Überschriften der Attrappe sind keine Überschriften dieser Seite (Gliederung für Google und Screenreader)
+    html = re.sub(r"<h([45])>", r'<p class="h\1">', html)
+    html = re.sub(r"</h[45]>", "</p>", html)
+    html = html.replace('alt=""', f'alt="{m["label"]}"')
     return f'<article class="{cls}" data-word="{m["word"]}" data-label="{m["label"]}">{html}\n</article>'
 
 
@@ -618,7 +622,8 @@ def head(title, desc, root, mock_keys=(), path="", extra=""):
 <meta property="og:url" content="{DOMAIN}/{path}">
 <link rel="canonical" href="{DOMAIN}/{path}">
 <meta name="theme-color" content="#3346ff">
-<link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">{extra}
+<link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{root}assets/apple-touch-icon.png">{extra}
 <!-- Erzeugt mit build.py – bitte dort ändern, nicht hier. -->
 <link rel="preload" href="{root}assets/fonts/{HAUPTSCHRIFT}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{root}assets/fonts.css?v={VERSION}">
@@ -766,7 +771,7 @@ def vergleich():
   <div class="wrap">
     <div class="head rv">
       <h2>Kein Baukasten. <strong>Keine Agentur.</strong></h2>
-      <p class="lead">Beim Baukasten machst du alles selbst. Bei der Agentur zahlst du für Termine und Abstimmungen. Bei uns stellst du in fünf Minuten zusammen, was du brauchst, und wir bauen deine Homepage.</p>
+      <p class="lead">Beim Baukasten machst du alles selbst. Bei der Agentur zahlst du für Termine und Abstimmungen. Bei uns lässt du deine Homepage erstellen: Du stellst in fünf Minuten zusammen, was du brauchst, und wir bauen sie.</p>
     </div>
     <div class="vs rv">
       {col("", "Homepage-Baukasten", [("no", "Du baust alles selbst"), ("no", "Viele Abende, bis alles passt"), ("no", "Design aus Vorlagen"), ("no", "Technik und Updates behältst du selbst im Blick")])}
@@ -1003,16 +1008,16 @@ def page_home():
         if b["mock"] is None:
             tiles.append(f'<a class="tile other" href="{b["slug"]}.html"><span><b class="big">Deine Branche ist <strong>nicht dabei?</strong></b></span><em>Zum Konfigurator →</em></a>')
         else:
-            tiles.append(f'<a class="tile" href="{b["slug"]}.html"><img {srcset(b["foto"], [360, 600], "(max-width: 700px) 66vw, 270px")} alt="" loading="lazy" decoding="async"><span>{escape(b["name"])} <em>Ansehen →</em></span></a>')
+            tiles.append(f'<a class="tile" href="{b["slug"]}.html"><img {srcset(b["foto"], [360, 600], "(max-width: 700px) 66vw, 270px")} alt="Foto zur Branche {escape(b["name"])}" loading="lazy" decoding="async"><span>{escape(b["name"])} <em>Ansehen →</em></span></a>')
     picks = []
     for b in BRANCHEN:
-        pic = '<span class="pic"></span>' if b["mock"] is None else f'<img src="{img(b["foto"], 160)}" alt="" loading="lazy" decoding="async">'
+        pic = '<span class="pic"></span>' if b["mock"] is None else f'<img src="{img(b["foto"], 160)}" alt="Foto zur Branche {escape(b["name"])}" loading="lazy" decoding="async">'
         picks.append(f'<li><a href="{b["slug"]}.html#start">{pic}{escape(b["name"])}<span class="arr">→</span></a></li>')
     ld = ('\n<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService",'
           f'"name":"{NAME}","slogan":"{CLAIM}","url":"{DOMAIN}/","email":"{MAIL}","areaServed":"DE",'
           '"description":"Homepages für Handwerk, Dienstleister und kleine Betriebe: online konfiguriert, von uns gebaut."}</script>')
     html = head(f"Homepage erstellen lassen ab {eur(GRUNDPREIS)} · {NAME}",
-                f"Homepage konfigurieren statt selbst basteln: Stell dir deine Firmen-Homepage in wenigen Minuten zusammen, wir bauen sie für dich. Ab {eur(GRUNDPREIS)} einmalig, kostenloser Entwurf in 5 Werktagen.",
+                f"Homepage erstellen lassen statt selbst basteln: in 5 Minuten konfiguriert, von uns gebaut. Ab {eur(GRUNDPREIS)} einmalig, Entwurf kostenlos.",
                 "", SLIDER_ORDER, "", ld)
     html += header("", True)
     html += f"""
@@ -1056,7 +1061,7 @@ def page_home():
 </section>
 
 <section class="photo-band" id="ohne">
-  <img {srcset('1603464021578-f327592a89de', [900, 1800], "100vw")} alt="" loading="lazy" decoding="async">
+  <img {srcset('1603464021578-f327592a89de', [900, 1800], "100vw")} alt="Laptop auf einem Schreibtisch" loading="lazy" decoding="async">
   <div class="inner">
     <p class="intro">Was du dir bei uns sparst:</p>
     <ul class="strike" id="strike">
@@ -1107,7 +1112,7 @@ def page_home():
     </div>
     <div class="intro-more">{promises()}
       <div class="start-photo">
-        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
+        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="Frau stellt am Laptop ihre Homepage zusammen" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
     </div>
@@ -1128,7 +1133,7 @@ def page_branche(b):
     keys = SLIDER_ORDER if sonst else [b["mock"]]
     wer = "jede Branche" if sonst else h1t
     title = f"Homepage für {escape(b['kw'])} erstellen lassen · {NAME}"
-    desc = f"Homepage für {wer} erstellen lassen: in wenigen Minuten konfiguriert, von uns gebaut. Ab {eur(GRUNDPREIS)} einmalig, Hosting {eur(HOSTING)} im Monat, kostenloser Entwurf in 5 Werktagen."
+    desc = f"Homepage für {escape(b['kw'])} erstellen lassen: online konfiguriert, von uns gebaut. Ab {eur(GRUNDPREIS)} einmalig, Entwurf kostenlos in 5 Werktagen."
     h1 = "Deine Branche ist <strong>nicht dabei?</strong>" if sonst else f"Homepage für <strong>{h1t}.</strong>"
     feats = "".join(f'<li><span class="ic">{icon(i)}</span><h3>{t}</h3><p>{p}</p></li>' for i, t, p in b["feats"])
     others = "".join(f'<a href="{o["slug"]}.html">{escape(o["name"])}</a>' for o in BRANCHEN if o is not b)
@@ -1160,7 +1165,7 @@ def page_branche(b):
         <p class="from"><b>ab {eur(GRUNDPREIS)}</b> einmalig · Entwurf in 5 Werktagen</p>
         <p class="from-note">Dazu Hosting {tip('hosting')} für {eur(HOSTING)} im Monat</p>
       </div>
-      <div class="sub-photo"><img {srcset(b['foto'], [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" fetchpriority="high" decoding="async"></div>
+      <div class="sub-photo"><img {srcset(b['foto'], [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="Foto zur Branche {escape(b['name'])}" fetchpriority="high" decoding="async"></div>
     </div>
     <div class="preview">{preview}</div>
   </div>
@@ -1168,7 +1173,7 @@ def page_branche(b):
 
 <section class="sec" id="leistungen">
   <div class="wrap">
-    <div class="head rv"><h2>{feats_h}</h2><p class="lead">{b['text']}</p></div>
+    <div class="head rv"><h2>{feats_h}</h2><p class="lead">{b['text']} {"Bei uns lässt du sie erstellen, ohne selbst zu basteln." if sonst else f"Bei uns kannst du deine Homepage für {escape(b['kw'])} erstellen lassen, ohne selbst zu basteln."}</p></div>
     <ul class="feats rv">{feats}</ul>
   </div>
 </section>
@@ -1182,7 +1187,7 @@ def page_branche(b):
 {konfigurator(b)}
     <div class="intro-more">{promises()}
       <div class="start-photo">
-        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
+        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="Frau stellt am Laptop ihre Homepage zusammen" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
     </div>
