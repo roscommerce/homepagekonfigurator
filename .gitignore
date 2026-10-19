@@ -1,0 +1,5 @@
+# Nicht ins Repo: private Akquise-Unterlagen und alte Sicherungen
+akquise/
+archiv/
+.DS_Store
+__pycache__/

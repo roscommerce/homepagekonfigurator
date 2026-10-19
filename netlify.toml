@@ -1,0 +1,4 @@
+# Netlify veröffentlicht den fertig gebauten Ordner site/ (erzeugt mit: python3 build.py)
+[build]
+  publish = "site"
+  command = ""
