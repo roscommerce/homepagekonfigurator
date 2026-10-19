@@ -116,8 +116,9 @@ p{max-width:62ch}
 }
 
 /* ---------- Vorschauen (Canvas 1200 x 720) ---------- */
-.m{position:absolute;inset:0;opacity:0;visibility:hidden;overflow:hidden}
-.m.on{opacity:1;visibility:visible}
+/* Nur die sichtbare Vorschau wird aufgebaut (spart am Handy viel Rechenzeit) */
+.m{position:absolute;inset:0;display:none;overflow:hidden}
+.m.on{display:block}
 .m.in-r{animation:inR .6s cubic-bezier(.2,.8,.2,1)}.m.in-l{animation:inL .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes inR{from{transform:translateX(5%);opacity:0}to{transform:none;opacity:1}}
 @keyframes inL{from{transform:translateX(-5%);opacity:0}to{transform:none;opacity:1}}
@@ -823,3 +824,7 @@ main section[id]{scroll-margin-top:96px}
 .done-ic{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--soft);color:var(--accent);margin-bottom:18px}
 .done-ic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .wizard.sent .err{display:none}
+
+/* Farbflächen am Handy ruhig stellen und leichter weichzeichnen: spart Rechenzeit beim Seitenaufbau */
+@media(max-width:760px){.blobs i{animation:none;filter:blur(48px)}}
+@media(prefers-reduced-motion:reduce){.blobs i{animation:none}}
