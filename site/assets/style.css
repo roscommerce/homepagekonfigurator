@@ -141,7 +141,7 @@ p{max-width:62ch}
 .m-salon nav{font-size:17px}
 .m-salon .mbtn{background:#3a1f2b;color:#f5e9e3;font-weight:500}
 .m-salon .hero-m{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;padding:20px 60px 0}
-.m-salon .kick{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#9b5a62}
+.m-salon .kick{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#95565e}
 .m-salon .h4{font-family:"Italiana",serif;font-weight:400;font-size:90px;line-height:.95;margin:18px 0 20px}
 .m-salon .txt{font-size:19px;max-width:36ch;line-height:1.5;color:#5b3a45}
 .m-salon .mbtn.big{margin-top:24px}
@@ -149,7 +149,7 @@ p{max-width:62ch}
 .m-salon .arch img{width:100%;height:100%;border-radius:220px 220px 0 0}
 .m-salon .arch::after{content:"";position:absolute;inset:22px;border:1.5px solid #fff9;border-radius:200px 200px 0 0}
 .m-salon .slot{position:absolute;z-index:1;left:-70px;bottom:60px;background:#fffaf7;padding:20px 22px;border-radius:18px;box-shadow:0 20px 40px -18px #3a1f2b66}
-.m-salon .slot small{display:block;font-size:14px;color:#9b5a62;margin-bottom:10px}
+.m-salon .slot small{display:block;font-size:14px;color:#95565e;margin-bottom:10px}
 .m-salon .slot span{display:inline-block;margin-right:8px;border:1.5px solid #3a1f2b;border-radius:30px;padding:6px 14px;font-size:16px;font-weight:500}
 .m-salon .slot span:first-of-type{background:#3a1f2b;color:#fffaf7}
 .m-salon .prices{position:absolute;left:60px;right:60px;bottom:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid #3a1f2b33;padding-top:18px;font-size:16px;background:#f5e9e3}
@@ -205,10 +205,10 @@ p{max-width:62ch}
 .m-praxis .logo{font-weight:700;font-size:24px;display:flex;align-items:center;gap:10px}
 .m-praxis .logo i{width:30px;height:30px;border-radius:50% 0 50% 0;background:#3f8f7d;display:block}
 .m-praxis nav{color:#4b6660;font-weight:500}
-.m-praxis .mbtn{background:#3f8f7d;color:#fff}
+.m-praxis .mbtn{background:#398170;color:#fff}
 .m-praxis .mbtn.ghost{background:transparent;color:#16302b;border:1.5px solid #16302b33}
 .m-praxis .hero-m{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:18px 60px 0}
-.m-praxis .kick{display:inline-block;background:#e2efe9;color:#2f7a69;padding:7px 15px;border-radius:30px;font-size:14px;font-weight:600}
+.m-praxis .kick{display:inline-block;background:#e2efe9;color:#2d7565;padding:7px 15px;border-radius:30px;font-size:14px;font-weight:600}
 .m-praxis .h4{font-weight:700;font-size:74px;line-height:1.04;letter-spacing:-.035em;margin:24px 0 20px}
 .m-praxis .h4 span{color:#3f8f7d}
 .m-praxis .txt{font-size:19px;color:#4b6660;max-width:32ch;line-height:1.55}
@@ -227,7 +227,7 @@ p{max-width:62ch}
 .m-praxis .days .sel{background:#16302b;color:#cfe5dd}.m-praxis .days .sel b{color:#fff}
 .m-praxis .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .m-praxis .slots span{text-align:center;border:1.5px solid #dbe7e2;border-radius:10px;padding:7px 0;font-size:14px;font-variant-numeric:tabular-nums}
-.m-praxis .slots .sel{background:#3f8f7d;border-color:#3f8f7d;color:#fff}
+.m-praxis .slots .sel{background:#398170;border-color:#398170;color:#fff}
 .m-praxis .book .mbtn{display:block;text-align:center;margin-top:12px;padding:12px;border-radius:12px;font-size:15px}
 
 /* Blumenladen */
@@ -253,7 +253,7 @@ p{max-width:62ch}
 /* Coaching */
 .m-coach{background:#f4efe7;color:#1f3a33;font-family:"DM Sans",sans-serif}
 .m-coach .logo{font-family:"DM Serif Display",serif;font-size:30px;line-height:1}
-.m-coach .logo small{display:block;font-family:"DM Sans",sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#d98b5f;margin-top:4px}
+.m-coach .logo small{display:block;font-family:"DM Sans",sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#945f41;margin-top:4px}
 .m-coach nav{color:#5b6f68;font-weight:500}
 .m-coach .mbtn{background:#1f3a33;color:#f4efe7}
 .m-coach .hero-m{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;padding:14px 60px 0}
@@ -261,14 +261,14 @@ p{max-width:62ch}
 .m-coach .cvis img{position:absolute;inset:0;width:100%;height:100%;border-radius:32px;object-position:40% center}
 .m-coach .stat{position:absolute;right:-40px;bottom:56px;background:#fff;border-radius:20px;padding:18px 22px;box-shadow:0 24px 44px -24px rgba(31,58,51,.5);font-size:14px;color:#5b6f68}
 .m-coach .stat b{display:block;font-family:"DM Serif Display",serif;font-size:42px;color:#1f3a33;font-weight:400;line-height:1}
-.m-coach .kick{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#d98b5f;font-weight:600;margin-top:12px}
+.m-coach .kick{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#945f41;font-weight:600;margin-top:12px}
 .m-coach .h4{font-family:"DM Serif Display",serif;font-weight:400;font-size:60px;line-height:1.04;margin:16px 0 18px}
-.m-coach .h4 em{color:#d98b5f}
+.m-coach .h4 em{color:#b4714c}
 .m-coach .txt{font-size:19px;color:#5b6f68;max-width:34ch;line-height:1.55}
 .m-coach .mbtn.big{margin-top:26px}
 .m-coach .offers{display:grid;gap:8px;margin-top:26px;max-width:460px}
 .m-coach .offers div{background:#fff;border-radius:16px;padding:13px 20px;display:flex;justify-content:space-between;font-size:17px;font-weight:500}
-.m-coach .offers span{color:#d98b5f}
+.m-coach .offers span{color:#b4714c}
 
 /* Elektro */
 .m-elek{background:#0f172a;color:#f1f5f9;font-family:"Outfit",sans-serif}
@@ -677,16 +677,16 @@ main section[id]{scroll-margin-top:96px}
 /* Sanitär & Heizung */
 .m-bad{background:#f5fafb;color:#0b2a3c;font-family:"Sora",sans-serif}
 .m-bad .logo{display:flex;align-items:center;gap:14px;font-size:22px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
-.m-bad .logo i{width:24px;height:24px;display:block;background:linear-gradient(135deg,#43ccd5,#0e7c86);border-radius:0 50% 50% 50%;transform:rotate(45deg);margin-left:4px}
+.m-bad .logo i{width:24px;height:24px;display:block;background:linear-gradient(135deg,#43ccd5,#0d7781);border-radius:0 50% 50% 50%;transform:rotate(45deg);margin-left:4px}
 .m-bad .logo small{display:block;font-size:13px;font-weight:400;color:#5b7685}
 .m-bad nav{color:#45606f;font-size:15px}
-.m-bad .mbtn{background:#0e7c86;color:#fff;border-radius:14px}
+.m-bad .mbtn{background:#0d7781;color:#fff;border-radius:14px}
 .m-bad .mbtn.ghost{background:#fff;color:#0b2a3c;border:1.5px solid #cfe3e7}
 .m-bad .hero-m{display:grid;grid-template-columns:1fr 1fr;gap:52px;padding:22px 60px 0}
-.m-bad .kick{display:inline-flex;align-items:center;gap:10px;background:#e1f3f5;color:#0e7c86;font-size:14px;font-weight:600;padding:8px 16px 8px 14px;border-radius:30px}
+.m-bad .kick{display:inline-flex;align-items:center;gap:10px;background:#e1f3f5;color:#0d7781;font-size:14px;font-weight:600;padding:8px 16px 8px 14px;border-radius:30px}
 .m-bad .kick::before{content:"";width:8px;height:8px;border-radius:50%;background:#e8483b;box-shadow:0 0 0 4px rgba(232,72,59,.18)}
 .m-bad .h4{font-size:58px;font-weight:600;line-height:1.06;letter-spacing:-.04em;margin:22px 0 18px}
-.m-bad .h4 span{color:#0e7c86}
+.m-bad .h4 span{color:#0d7781}
 .m-bad .txt{font-size:18px;line-height:1.6;color:#45606f;max-width:36ch}
 .m-bad .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
 .m-bad .tags span{background:#fff;border:1px solid #d9e9ec;border-radius:12px;padding:9px 14px;font-size:15px;font-weight:500}
@@ -696,7 +696,7 @@ main section[id]{scroll-margin-top:96px}
 .m-bad .plan .h5{font-size:17px;font-weight:600;margin-bottom:8px}
 .m-bad .plan li{display:flex;align-items:center;gap:12px;font-size:15px;padding:9px 0;border-top:1px solid #edf3f5;color:#45606f}
 .m-bad .plan li:first-child{border:0}
-.m-bad .plan li b{width:28px;height:28px;border-radius:50%;background:#e1f3f5;color:#0e7c86;display:grid;place-items:center;font-size:13px;flex:none}
+.m-bad .plan li b{width:28px;height:28px;border-radius:50%;background:#e1f3f5;color:#0d7781;display:grid;place-items:center;font-size:13px;flex:none}
 
 /* Maler */
 .m-maler{background:#fff6dc;color:#1d1a16;font-family:"Bricolage Grotesque",sans-serif}
@@ -730,9 +730,9 @@ main section[id]{scroll-margin-top:96px}
 .m-garten .gvis img{width:100%;height:100%;border-radius:24px 230px 24px 24px}
 .m-garten .quote{position:absolute;right:-36px;bottom:36px;width:270px;background:#fffdf7;border-radius:18px;padding:18px 20px;font-size:13px;line-height:1.45;box-shadow:0 24px 50px -24px rgba(35,53,42,.45)}
 .m-garten .quote b{display:block;font-family:"Young Serif",serif;font-weight:400;font-size:18px;line-height:1.3;margin-bottom:8px;color:#23352a}
-.m-garten .quote span{color:#7a8a76}
+.m-garten .quote span{color:#697765}
 .m-garten .copy{padding-top:56px}
-.m-garten .kick{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#5f8a4f;font-weight:600}
+.m-garten .kick{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#507442;font-weight:600}
 .m-garten .h4{font-family:"Young Serif",serif;font-weight:400;font-size:56px;line-height:1.08;letter-spacing:-.015em;margin:18px 0}
 .m-garten .txt{font-size:18px;line-height:1.6;color:#556556;max-width:36ch}
 .m-garten .list{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:32px;font-size:16px;font-weight:500;max-width:420px}
@@ -746,12 +746,12 @@ main section[id]{scroll-margin-top:96px}
 .m-kfz .kvis::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,23,.75),rgba(18,20,23,0) 22%),linear-gradient(90deg,rgba(18,20,23,.85),rgba(18,20,23,0) 45%)}
 .m-kfz .mh{position:relative;z-index:2}
 .m-kfz .logo{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:34px;letter-spacing:.02em;text-transform:uppercase;line-height:1}
-.m-kfz .logo span{color:#e63327}
+.m-kfz .logo span{color:#e84338}
 .m-kfz .logo small{display:block;font-family:"Barlow",sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#9a9ea5;font-weight:500;margin-top:5px}
 .m-kfz nav{color:#d5d7db;font-weight:500}
-.m-kfz .mbtn{background:#e63327;color:#fff;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
+.m-kfz .mbtn{background:#dd3125;color:#fff;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
 .m-kfz .hero-m{position:relative;z-index:1;padding:30px 60px 0;max-width:700px}
-.m-kfz .kick{font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#e63327}
+.m-kfz .kick{font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#e84338}
 .m-kfz .h4{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:84px;line-height:.92;text-transform:uppercase;margin:14px 0 18px}
 .m-kfz .txt{font-size:19px;color:#b5b9bf;max-width:36ch;line-height:1.5}
 .m-kfz .book{margin-top:30px;background:#1d2024;border:1px solid #2c3036;border-radius:14px;padding:16px;display:grid;grid-template-columns:1.1fr 1fr 1fr auto;gap:10px;align-items:end;width:630px}
@@ -765,13 +765,13 @@ main section[id]{scroll-margin-top:96px}
 .m-metall{background:#e8e9eb;color:#15171a;font-family:"Space Grotesk",sans-serif}
 .m-metall .logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:25px;letter-spacing:.04em;line-height:1}
 .m-metall .logo i{width:30px;height:30px;display:block;background:#ff6a13;clip-path:polygon(0 0,100% 0,100% 28%,63% 28%,63% 72%,100% 72%,100% 100%,0 100%,0 72%,37% 72%,37% 28%,0 28%)}
-.m-metall .logo small{display:block;font-size:11px;font-weight:500;color:#6c7077;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
+.m-metall .logo small{display:block;font-size:11px;font-weight:500;color:#63676d;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
 .m-metall nav{color:#4a4e55;font-weight:500}
 .m-metall .mbtn{background:#15171a;color:#fff;border-radius:4px}
 .m-metall .hero-m{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;padding:26px 60px 0}
-.m-metall .kick{font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#6c7077}
+.m-metall .kick{font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#63676d}
 .m-metall .h4{font-size:84px;font-weight:700;line-height:.98;letter-spacing:-.045em;margin:18px 0 20px}
-.m-metall .h4 span{color:#ff6a13}
+.m-metall .h4 span{color:#d65910}
 .m-metall .txt{font-size:18px;line-height:1.55;color:#4a4e55;max-width:38ch}
 .m-metall .mbtn.big{border-radius:4px}
 .m-metall .mbtn.ghost{background:transparent;color:#15171a;box-shadow:inset 0 0 0 1.5px #15171a}
