@@ -775,6 +775,17 @@ def vergleich():
 """
 
 
+def howto(branche_fertig):
+    """So funktioniert der Konfigurator: drei Schritte, auf Branchenseiten ist Schritt 1 schon erledigt."""
+    s1 = "Branche gewählt" if branche_fertig else "Branche wählen"
+    return f"""
+      <ol class="howto">
+        <li{' class="done"' if branche_fertig else ' class="now"'}><b>{CK if branche_fertig else "1"}</b><span>{s1}</span></li>
+        <li{' class="now"' if branche_fertig else ''}><b>2</b><span>In 7 kurzen Schritten zusammenklicken, der Preis läuft mit</span></li>
+        <li><b>3</b><span>Kostenlosen Entwurf in 5 Werktagen bekommen</span></li>
+      </ol>"""
+
+
 def promises():
     return f"""
       <ul class="promise">
@@ -836,6 +847,8 @@ def konfigurator(b):
       <input type="hidden" name="preis_monatlich" value="">
       <input type="hidden" name="zusammenfassung" value="">
       <p hidden><label>Nicht ausfüllen <input name="bot-field" id="bot-field"></label></p>
+      <span class="anchor" id="start"></span>
+      <p class="wiz-branche">Branche: <b>{escape(b['name'])}</b> · <a href="{ROOT}index.html#start">ändern</a></p>
       <div class="segs">{segs}</div>
       <p class="qno" id="qno">Schritt 1 von 7</p>
 
@@ -1073,23 +1086,26 @@ def page_home():
   </div>
 </section>
 
-<section class="sec start" id="start">
+<section class="sec start" id="konfigurator">
   <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap start-grid">
     <div class="intro rv">
-      <h2>Konfiguriere <strong>deine Homepage.</strong></h2>
-      <p class="lead" style="margin-top:18px">Wähle deine Branche. Der Konfigurator passt sich an und ist in wenigen Minuten fertig.</p>{promises()}
+      <span class="anchor" id="start"></span>
+      <h2>Konfiguriere <strong>deine Homepage.</strong></h2>{howto(False)}
+    </div>
+    <div class="picker rv">
+      <p class="step-k">Los geht&#39;s</p>
+      <p class="q">Was für einen Betrieb hast du?</p>
+      <p>Tipp auf deine Branche, dann geht es direkt mit dem Konfigurator weiter.</p>
+      <ul class="picks">
+        {''.join(picks)}
+      </ul>
+    </div>
+    <div class="intro-more">{promises()}
       <div class="start-photo">
         <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
-    </div>
-    <div class="picker rv">
-      <p class="q">Was für einen Betrieb hast du?</p>
-      <p>Jede Branche hat ihren eigenen Konfigurator.</p>
-      <ul class="picks">
-        {''.join(picks)}
-      </ul>
     </div>
   </div>
 </section>
@@ -1153,18 +1169,19 @@ def page_branche(b):
   </div>
 </section>
 {week()}{pricing()}
-<section class="sec start" id="start">
+<section class="sec start" id="konfigurator">
   <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap start-grid">
     <div class="intro rv">
-      <h2>{start_h}</h2>
-      <p class="lead" style="margin-top:18px">Ein paar Klicks, in wenigen Minuten fertig. Unten im Konfigurator siehst du jederzeit, was deine Homepage kostet.</p>{promises()}
+      <h2>{start_h}</h2>{howto(not sonst)}
+    </div>
+{konfigurator(b)}
+    <div class="intro-more">{promises()}
       <div class="start-photo">
         <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
     </div>
-{konfigurator(b)}
   </div>
 </section>
 {faq()}

@@ -1,5 +1,12 @@
 // HomepageKonfigurator – gemeinsames Skript für alle Seiten
 document.documentElement.classList.add('js');
+
+// Sprung zu #start beim Öffnen einer Seite absichern (Bilder darüber können die Position noch verschieben)
+if (location.hash === '#start') {
+  const jump = () => { const t = document.getElementById('start'); if (t) t.scrollIntoView({ behavior: 'instant', block: 'start' }); };
+  addEventListener('DOMContentLoaded', jump);
+  addEventListener('load', () => { if (scrollY < 50 || Math.abs(document.getElementById('start').getBoundingClientRect().top - parseFloat(getComputedStyle(document.getElementById('start')).scrollMarginTop)) > 40) jump(); });
+}
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Lineal der Tischlerei beschriften

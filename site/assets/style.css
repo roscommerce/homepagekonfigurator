@@ -794,3 +794,28 @@ main section[id]{scroll-margin-top:96px}
 .xlist li small{display:block;font-size:.84rem;color:var(--muted);margin-top:2px;line-height:1.4}
 .contact{max-width:620px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px 24px;box-shadow:var(--shadow-s);position:relative}
 .contact .btn{margin-top:22px}
+
+/* Start-Abschnitt: Auswahl am Handy direkt unter der Überschrift (10/2026) */
+.anchor{display:block;height:0;scroll-margin-top:92px}
+.start-grid{gap:22px}
+.intro-more .promise{margin-top:0}
+@media(max-width:999px){.intro-more .start-photo{display:none}}
+@media(min-width:1000px){
+  .start-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 56px}
+  .start-grid .intro{grid-column:1;grid-row:1}
+  .start-grid .picker,.start-grid .wizard{grid-column:2;grid-row:1 / span 2}
+  .start-grid .intro-more{grid-column:1;grid-row:2}
+}
+.howto{list-style:none;display:grid;gap:10px;margin-top:20px}
+.howto li{display:flex;align-items:center;gap:12px;color:var(--ink-2);line-height:1.35}
+.howto b{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:.9rem;font-weight:600;border:1.5px solid var(--line);background:var(--card);color:var(--ink-2)}
+.howto li.now{color:var(--ink);font-weight:600}
+.howto li.now b{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.howto li.done b{background:var(--soft);border-color:var(--soft);color:var(--accent)}
+.howto li.done b .ck{background:none;width:auto;height:auto}
+.step-k{display:inline-block;font-size:.8rem!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)!important;margin:0 0 6px!important}
+.wiz-branche{font-size:.9rem;color:var(--ink-2);margin-bottom:14px}
+.wiz-branche b{color:var(--ink)}
+.wiz-branche a{color:var(--accent)}
+@media(max-width:599px){.start.sec{padding-top:40px}}
+.wizard .anchor{scroll-margin-top:122px}
