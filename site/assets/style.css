@@ -705,7 +705,7 @@ main section[id]{scroll-margin-top:96px}
 .m-maler nav{font-weight:600;color:#5c554a;font-size:17px}
 .m-maler .mbtn{background:#1d1a16;color:#fff6dc}
 .m-maler .hero-m{display:grid;grid-template-columns:1.12fr .88fr;gap:40px;padding:14px 60px 0}
-.m-maler .kick{font-size:16px;font-weight:600;color:#e2462a}
+.m-maler .kick{font-size:16px;font-weight:600;color:#b8361c}
 .m-maler .h4{font-size:94px;font-weight:800;line-height:.92;letter-spacing:-.055em;margin:16px 0 24px}
 .m-maler .h4 em{font-style:normal;background:linear-gradient(transparent 60%,#ffc93c 60%,#ffc93c 90%,transparent 90%)}
 .m-maler .txt{font-size:19px;line-height:1.55;color:#5c554a;max-width:34ch}
@@ -715,7 +715,7 @@ main section[id]{scroll-margin-top:96px}
 .m-maler .mvis{position:relative;height:596px}
 .m-maler .mvis img{position:absolute;top:0;right:0;width:calc(100% - 30px);height:100%;border-radius:36px 36px 36px 150px}
 .m-maler .pal{position:absolute;left:0;bottom:44px;background:#fff;border-radius:20px;padding:16px 18px;box-shadow:0 24px 50px -20px rgba(29,26,22,.4)}
-.m-maler .pal small{display:block;font-size:13px;font-weight:600;color:#8a8275;margin-bottom:10px}
+.m-maler .pal small{display:block;font-size:13px;font-weight:600;color:#6a6256;margin-bottom:10px}
 .m-maler .pal div{display:flex;gap:10px}
 .m-maler .pal i{display:block;width:44px;height:44px;border-radius:12px}
 
