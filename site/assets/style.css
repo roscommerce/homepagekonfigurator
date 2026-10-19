@@ -476,7 +476,7 @@ main section[id]{scroll-margin-top:96px}
 .done-msg p{color:var(--ink-2)}
 
 /* Branchenseite */
-.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.9rem;color:var(--muted)}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.9rem;color:var(--ink-2)}.crumbs>span:last-child{color:var(--ink);font-weight:500}
 .crumbs a{text-decoration:none;color:var(--ink-2)}.crumbs a:hover{color:var(--ink)}
 .sub-hero .hero-top{gap:40px}
 @media(min-width:1000px){.sub-hero .hero-top{grid-template-columns:1.1fr .9fr;align-items:center}}
