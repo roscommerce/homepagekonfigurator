@@ -47,6 +47,7 @@ VERSION = str(int(time.time()))  # hängt an CSS/JS, damit Browser keine alte Ve
 ANBIETER = dict(name="Sven Rosenthal", strasse="In der Landwehr 21", ort="34376 Immenhausen OT Holzhausen",
                 land="Deutschland", ust="DE300044005")
 
+BILDQUALITAET = 62  # WebP-Qualität; bei Änderung den Ordner site/assets/img leeren, dann lädt build.py neu
 IMAGES = set()   # alle verwendeten Fotos (Unsplash-ID, Breite) – werden lokal gespeichert
 ROOT = "{ROOT}"  # Platzhalter, wird pro Seite durch den relativen Pfad zur Startseite ersetzt
 
@@ -605,6 +606,28 @@ def _hauptschrift():
 HAUPTSCHRIFT = _hauptschrift()
 
 
+def _css_klein(css):
+    """Stylesheet verkleinern: Kommentare und überflüssige Leerzeichen raus."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};])\s*", r"\1", css)
+    return css.replace(";}", "}").strip()
+
+
+def _hauptschrift_css(root):
+    """@font-face der Hauptschrift, damit sie ohne Umweg über fonts.css sofort bekannt ist."""
+    f = OUT / "assets" / "fonts.css"
+    if not f.exists():
+        return ""
+    m = re.search(r"@font-face\s*{[^}]*font-family: 'Hanken Grotesk';[^}]*}", f.read_text(encoding="utf-8"))
+    return _css_klein(m.group(0).replace("url(fonts/", f"url({root}assets/fonts/")) if m else ""
+
+
+# style.css wird verkleinert direkt in jede Seite eingebettet: Der Browser muss nicht erst eine Datei laden,
+# bevor er etwas anzeigt (wichtig für die Ladezeit am Handy). Gepflegt wird weiter site/assets/style.css.
+STYLE_INLINE = _css_klein((OUT / "assets" / "style.css").read_text(encoding="utf-8"))
+
+
 def head(title, desc, root, mock_keys=(), path="", extra=""):
     # Schriften liegen lokal (assets/fonts.css); der Browser lädt nur die, die eine Seite wirklich nutzt.
     return f"""<!doctype html>
@@ -626,8 +649,10 @@ def head(title, desc, root, mock_keys=(), path="", extra=""):
 <link rel="apple-touch-icon" href="{root}assets/apple-touch-icon.png">{extra}
 <!-- Erzeugt mit build.py – bitte dort ändern, nicht hier. -->
 <link rel="preload" href="{root}assets/fonts/{HAUPTSCHRIFT}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{root}assets/fonts.css?v={VERSION}">
-<link rel="stylesheet" href="{root}assets/style.css?v={VERSION}">
+<style>{_hauptschrift_css(root)}{STYLE_INLINE}</style>
+<!-- Schriften der Beispiel-Vorschauen: laden im Hintergrund, blockieren den Seitenaufbau nicht -->
+<link rel="preload" href="{root}assets/fonts.css?v={VERSION}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{root}assets/fonts.css?v={VERSION}"></noscript>
 </head>
 <body>
 """
@@ -1368,7 +1393,7 @@ def ensure_images():
     for pid, w in sorted(IMAGES):
         f = d / f"{pid}-{w}.webp"
         if not f.exists():
-            f.write_bytes(fetch(f"https://images.unsplash.com/photo-{pid}?w={w}&q=72&fm=webp&fit=crop"))
+            f.write_bytes(fetch(f"https://images.unsplash.com/photo-{pid}?w={w}&q={BILDQUALITAET}&fm=webp&fit=crop"))
             neu += 1
     # Nicht mehr verwendete Fotos entfernen, damit nichts Unnötiges veröffentlicht wird
     genutzt = {f"{pid}-{w}.webp" for pid, w in IMAGES}
