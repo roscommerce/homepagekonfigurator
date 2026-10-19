@@ -2,7 +2,7 @@
    Hinweis: Diese Datei wird von Hand gepflegt. Die HTML-Seiten erzeugt build.py. */
 
 :root{
-  --bg:#fbfaf8; --bg-2:#f4f2ee; --card:#ffffff; --ink:#141829; --ink-2:#565c72; --muted:#8a8fa3; --line:#e8e5e0;
+  --bg:#fbfaf8; --bg-2:#f4f2ee; --card:#ffffff; --ink:#141829; --ink-2:#565c72; --muted:#6b7086; --line:#e8e5e0;
   --accent:#3346ff; --on-accent:#ffffff; --soft:#eceeff; --navy:#12152b; --on-navy:#f3f4fb;
   --blob1:#ffd3bd; --blob2:#cbd9ff; --blob3:#ecd7ff; --err:#c8103e;
   --shadow:0 40px 80px -40px rgba(20,24,41,.35),0 12px 28px -16px rgba(20,24,41,.18);
@@ -124,7 +124,7 @@ p{max-width:62ch}
 .m *{transition:color .6s,background-color .6s,border-color .6s,outline-color .6s,box-shadow .6s,opacity .6s}
 .m .mh{display:flex;align-items:center;justify-content:space-between;height:92px;padding:0 60px}
 .m nav{display:flex;gap:34px;font-size:16px}
-.m nav a,.m .mbtn{text-decoration:none}
+.m nav a,.m nav span,.m .mbtn{text-decoration:none}
 .m .mbtn{display:inline-block;border-radius:40px;font-size:16px;padding:13px 24px;font-weight:600}
 .m .mbtn.big{font-size:17px;padding:16px 28px}
 .m .row{display:flex;gap:12px;margin-top:28px}
@@ -523,7 +523,7 @@ main section[id]{scroll-margin-top:96px}
 .btn.inv{background:#fff;color:#12152b;border-color:#fff;box-shadow:none}
 .foot{display:grid;gap:28px;margin-top:40px;font-size:.95rem}
 @media(min-width:800px){.foot{grid-template-columns:2fr 1fr 1fr 1fr}}
-.foot h4{font-size:.85rem;font-weight:500;opacity:.6;margin-bottom:10px}
+.foot h3{font-size:.85rem;font-weight:500;opacity:.6;margin-bottom:10px}
 .foot ul{list-style:none;display:grid;gap:6px}
 .foot a{text-decoration:none;opacity:.9}.foot a:hover{opacity:1;text-decoration:underline}
 .foot .brand i{background:#fff}.foot .brand i::after{background:#12152b}
@@ -655,7 +655,7 @@ main section[id]{scroll-margin-top:96px}
 .m-dach .mh{padding:0 60px}
 .m-dach .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:26px;letter-spacing:.08em;line-height:1}
 .m-dach .logo i{width:38px;height:26px;display:block;background:#c4532f;clip-path:polygon(50% 0,100% 72%,85% 72%,50% 24%,15% 72%,0 72%)}
-.m-dach .logo small{display:block;font-size:11px;letter-spacing:.16em;font-weight:500;color:#6b6f75;margin-top:5px}
+.m-dach .logo small{display:block;font-size:11px;letter-spacing:.16em;font-weight:500;color:#565a61;margin-top:5px}
 .m-dach nav{font-weight:500;color:#4a4f56}
 .m-dach .mbtn{background:#c4532f;color:#fff;border-radius:10px}
 .m-dach .hero-m{position:relative;margin:0 40px;height:604px;border-radius:26px;overflow:hidden}
@@ -668,7 +668,7 @@ main section[id]{scroll-margin-top:96px}
 .m-dach .mbtn.big{border-radius:12px}
 .m-dach .mbtn.ghost{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.55)}
 .m-dach .stats{position:absolute;right:26px;bottom:26px;z-index:2;display:flex;background:#fff;border-radius:18px;padding:18px 6px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
-.m-dach .stats div{padding:0 24px;border-left:1px solid #e6e1d9;font-size:14px;color:#6b6f75;line-height:1.3}
+.m-dach .stats div{padding:0 24px;border-left:1px solid #e6e1d9;font-size:14px;color:#565a61;line-height:1.3}
 .m-dach .stats div:first-child{border:0}
 .m-dach .stats b{display:block;font-size:30px;font-weight:800;color:#22262b;letter-spacing:-.02em;margin-bottom:2px}
 .m-dach .stats div:last-child b{color:#c4532f}

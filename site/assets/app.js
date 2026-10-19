@@ -24,8 +24,12 @@ document.querySelectorAll('.viewport').forEach(vp => {
   const vp = slider.querySelector('.viewport'), word = document.getElementById('word');
   const n = mocks.length;
   let cur = 0, timer = null, drafting, auto = !reduce;
+  // Bilder der übrigen Vorschauen erst bei Bedarf laden (schnellerer Seitenaufbau am Handy)
+  const load = m => m.querySelectorAll('img[data-src]').forEach(i => { i.srcset = i.dataset.srcset; i.src = i.dataset.src; i.removeAttribute('data-src'); });
+  addEventListener('load', () => setTimeout(() => mocks.forEach(load), 2500));
   const show = (k, dir = 1) => {
     k = (k + n) % n;
+    load(mocks[k]);
     if (k === cur) return;
     mocks[cur].classList.remove('on', 'draft', 'in-r', 'in-l');
     const m = mocks[k]; cur = k;
@@ -87,7 +91,7 @@ document.querySelectorAll('.viewport').forEach(vp => {
   const tips = document.querySelectorAll('.tip');
   if (!tips.length) return;
   const box = document.createElement('div');
-  box.id = 'tipbox'; box.setAttribute('role', 'tooltip');
+  box.id = 'tipbox'; box.setAttribute('aria-live', 'polite');
   document.body.appendChild(box);
   let cur = null, shownAt = 0, touch = false;
   const show = t => {

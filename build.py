@@ -56,6 +56,12 @@ def img(pid, w=900):
     return f"{ROOT}assets/img/{pid}-{w}.webp"
 
 
+def srcset(pid, widths, sizes):
+    """src + srcset + sizes: Handys laden die kleine Fassung, große Bildschirme die große."""
+    ws = sorted(widths)
+    return f'src="{img(pid, ws[-1])}" srcset="{", ".join(f"{img(pid, w)} {w}w" for w in ws)}" sizes="{sizes}"'
+
+
 # ---------------------------------------------------------------- Icons
 ICONS = {
     "palette": '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.8 1.5-1.5 0-.9-.7-1.2-.7-2 0-.9.7-1.5 1.6-1.5H16a5 5 0 0 0 5-5c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',
@@ -315,10 +321,25 @@ MOCKS = {
 SLIDER_ORDER = ["elek", "dach", "salon", "bad", "holz", "cafe", "maler", "praxis"]
 
 
-def mock(key, on=False):
+MOCK_IMG = re.compile(r'<img src="\{ROOT\}assets/img/([\w-]+)-(\d+)\.webp"')
+
+
+def mock(key, on=False, lazy=False):
+    """Vorschau-Canvas. lazy: Bilder erst laden, wenn die Vorschau im Slider gezeigt wird (app.js)."""
     m = MOCKS[key]
     cls = "m m-" + key + (" on" if on else "")
-    return f'<article class="{cls}" data-word="{m["word"]}" data-label="{m["label"]}">{m["html"]}\n</article>'
+    html = m["html"]
+    # Links in den Vorschauen sind Attrappen: <span> statt <a>, damit Google keine toten Links findet
+    html = html.replace("<a>", "<span>").replace('<a class="', '<span class="').replace("</a>", "</span>")
+    # Kleinere Bildfassung fürs Handy; die Vorschau ist dort nur etwa halb so breit wie der Bildschirm
+    sizes = "(max-width: 1240px) 95vw, 1150px" if key == "dach" else "(max-width: 1240px) 48vw, 560px"
+    def resp(mt):
+        attrs = srcset(mt.group(1), [480, int(mt.group(2))], sizes)
+        if lazy:
+            attrs = 'src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" ' + attrs.replace('src="', 'data-src="', 1).replace('srcset="', 'data-srcset="')
+        return "<img " + attrs
+    html = MOCK_IMG.sub(resp, html)
+    return f'<article class="{cls}" data-word="{m["word"]}" data-label="{m["label"]}">{html}\n</article>'
 
 
 # ---------------------------------------------------------------- Branchen
@@ -569,6 +590,15 @@ def brand(root, uid):
     return f'<a class="brand" href="{root}index.html" aria-label="{NAME}, zur Startseite">{logo_svg(uid)}<span class="wm">Homepage<b>Konfigurator</b></span></a>'
 
 
+def _hauptschrift():
+    f = OUT / "assets" / "fonts.css"
+    m = re.search(r"font-family: 'Hanken Grotesk';[^}]*?url\(fonts/([^)]+)\)", f.read_text(encoding="utf-8")) if f.exists() else None
+    return m.group(1) if m else ""
+
+
+HAUPTSCHRIFT = _hauptschrift()
+
+
 def head(title, desc, root, mock_keys=(), path="", extra=""):
     # Schriften liegen lokal (assets/fonts.css); der Browser lädt nur die, die eine Seite wirklich nutzt.
     return f"""<!doctype html>
@@ -588,6 +618,7 @@ def head(title, desc, root, mock_keys=(), path="", extra=""):
 <meta name="theme-color" content="#3346ff">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">{extra}
 <!-- Erzeugt mit build.py – bitte dort ändern, nicht hier. -->
+<link rel="preload" href="{root}assets/fonts/{HAUPTSCHRIFT}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{root}assets/fonts.css?v={VERSION}">
 <link rel="stylesheet" href="{root}assets/style.css?v={VERSION}">
 </head>
@@ -621,7 +652,7 @@ def slider(keys):
     chips = "\n".join(
         f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}">{escape(next(b["name"] for b in BRANCHEN if b["mock"] == k))}</button>'
         for i, k in enumerate(keys))
-    arts = "\n".join(mock(k, i == 0) for i, k in enumerate(keys))
+    arts = "\n".join(mock(k, i == 0, lazy=i > 0) for i, k in enumerate(keys))
     first = MOCKS[keys[0]]["label"]
     return f"""
 <div class="slider" id="slider">
@@ -934,9 +965,9 @@ def footer(root, home, legal=False):
       </div>
       <div class="foot">
         <div>{brand(root, "f")}<p class="claim">{CLAIM}</p><p>Wir bauen Homepages für Handwerk, Dienstleister und kleine Betriebe. Einmal bezahlen, Hosting {eur(HOSTING)} im Monat.</p></div>
-        <div><h4>Seite</h4><ul><li><a href="{seite}">Beispiele</a></li><li><a href="{base}#woche">Ablauf</a></li><li><a href="{base}#preise">Preise</a></li><li><a href="{base}#fragen">Fragen</a></li></ul></div>
-        <div><h4>Branchen</h4><ul>{branchen}</ul></div>
-        <div><h4>Rechtliches</h4><ul><li><a href="{root}impressum.html">Impressum</a></li><li><a href="{root}datenschutz.html">Datenschutz</a></li><li><a href="{root}agb.html">AGB</a></li><li><a href="{root}kontakt.html">Kontakt</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li></ul></div>
+        <div><h3>Seite</h3><ul><li><a href="{seite}">Beispiele</a></li><li><a href="{base}#woche">Ablauf</a></li><li><a href="{base}#preise">Preise</a></li><li><a href="{base}#fragen">Fragen</a></li></ul></div>
+        <div><h3>Branchen</h3><ul>{branchen}</ul></div>
+        <div><h3>Rechtliches</h3><ul><li><a href="{root}impressum.html">Impressum</a></li><li><a href="{root}datenschutz.html">Datenschutz</a></li><li><a href="{root}agb.html">AGB</a></li><li><a href="{root}kontakt.html">Kontakt</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li></ul></div>
       </div>
       <p class="copy">© 2026 {NAME}</p>
     </div>
@@ -955,7 +986,7 @@ def page_home():
         if b["mock"] is None:
             tiles.append(f'<a class="tile other" href="{b["slug"]}.html"><span><b class="big">Deine Branche ist <strong>nicht dabei?</strong></b></span><em>Zum Konfigurator →</em></a>')
         else:
-            tiles.append(f'<a class="tile" href="{b["slug"]}.html"><img src="{img(b["foto"])}" alt="" loading="lazy" decoding="async"><span>{escape(b["name"])} <em>Ansehen →</em></span></a>')
+            tiles.append(f'<a class="tile" href="{b["slug"]}.html"><img {srcset(b["foto"], [360, 600], "(max-width: 700px) 66vw, 270px")} alt="" loading="lazy" decoding="async"><span>{escape(b["name"])} <em>Ansehen →</em></span></a>')
     picks = []
     for b in BRANCHEN:
         pic = '<span class="pic"></span>' if b["mock"] is None else f'<img src="{img(b["foto"], 160)}" alt="" loading="lazy" decoding="async">'
@@ -1008,7 +1039,7 @@ def page_home():
 </section>
 
 <section class="photo-band" id="ohne">
-  <img src="{img('1603464021578-f327592a89de', 1800)}" alt="" loading="lazy" decoding="async">
+  <img {srcset('1603464021578-f327592a89de', [900, 1800], "100vw")} alt="" loading="lazy" decoding="async">
   <div class="inner">
     <p class="intro">Was du dir bei uns sparst:</p>
     <ul class="strike" id="strike">
@@ -1049,7 +1080,7 @@ def page_home():
       <h2>Konfiguriere <strong>deine Homepage.</strong></h2>
       <p class="lead" style="margin-top:18px">Wähle deine Branche. Der Konfigurator passt sich an und ist in wenigen Minuten fertig.</p>{promises()}
       <div class="start-photo">
-        <img src="{img(SONST_FOTO, 1000)}" alt="" loading="lazy" decoding="async">
+        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
     </div>
@@ -1109,7 +1140,7 @@ def page_branche(b):
         <p class="from"><b>ab {eur(GRUNDPREIS)}</b> einmalig · Entwurf in 5 Werktagen</p>
         <p class="from-note">Dazu Hosting {tip('hosting')} für {eur(HOSTING)} im Monat</p>
       </div>
-      <div class="sub-photo"><img src="{img(b['foto'], 1000)}" alt="" decoding="async"></div>
+      <div class="sub-photo"><img {srcset(b['foto'], [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" fetchpriority="high" decoding="async"></div>
     </div>
     <div class="preview">{preview}</div>
   </div>
@@ -1129,7 +1160,7 @@ def page_branche(b):
       <h2>{start_h}</h2>
       <p class="lead" style="margin-top:18px">Ein paar Klicks, in wenigen Minuten fertig. Unten im Konfigurator siehst du jederzeit, was deine Homepage kostet.</p>{promises()}
       <div class="start-photo">
-        <img src="{img(SONST_FOTO, 1000)}" alt="" loading="lazy" decoding="async">
+        <img {srcset(SONST_FOTO, [600, 1000], "(max-width: 1000px) 92vw, 520px")} alt="" loading="lazy" decoding="async">
         <span class="badge"><i>5</i>Minuten, wann es dir passt</span>
       </div>
     </div>
@@ -1313,6 +1344,11 @@ def ensure_images():
         if not f.exists():
             f.write_bytes(fetch(f"https://images.unsplash.com/photo-{pid}?w={w}&q=72&fm=webp&fit=crop"))
             neu += 1
+    # Nicht mehr verwendete Fotos entfernen, damit nichts Unnötiges veröffentlicht wird
+    genutzt = {f"{pid}-{w}.webp" for pid, w in IMAGES}
+    for f in d.glob("*.webp"):
+        if f.name not in genutzt:
+            f.unlink()
     return neu
 
 
@@ -1438,6 +1474,9 @@ def main():
     heute = time.strftime("%Y-%m-%d")
     urls = "".join(f"  <url><loc>{DOMAIN}/{'' if p.name == 'index.html' else p.name}</loc><lastmod>{heute}</lastmod></url>\n" for p, _, _ in pages)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
+    # Netlify: Bilder, Schriften, CSS und JS lange zwischenspeichern (CSS/JS haben ?v=…, neue Fassungen haben also eine neue Adresse)
+    jahr = "  Cache-Control: public, max-age=31536000, immutable\n"
+    (OUT / "_headers").write_text("".join(f"{pfad}\n{jahr}" for pfad in ("/assets/img/*", "/assets/fonts/*", "/assets/*.css", "/assets/*.js")), encoding="utf-8")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
 
     # Netlify: Zweitdomain und www per 301 auf die Hauptdomain
