@@ -1,0 +1,8 @@
+{
+  "name": "homepagekonfigurator",
+  "private": true,
+  "description": "Netlify-Funktion: Bestätigungsmail an Kunden nach dem Konfigurator",
+  "dependencies": {
+    "nodemailer": "6.9.16"
+  }
+}
