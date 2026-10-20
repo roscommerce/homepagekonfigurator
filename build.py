@@ -13,7 +13,6 @@ Inhalte ändern:
 
 Offene Punkte (vom Inhaber zu entscheiden):
   Marke (19.10.2026): HomepageKonfigurator · homepagekonfigurator.de (homepage-konfigurator.de → 301) · Claim siehe CLAIM · Ansprache „du“
-  OFFEN: Zusage "Änderungen in der Regel innerhalb von 2 Werktagen" (Wartung)
 Machbarkeit:
   Domain ~1 €/Monat (INWX, Inhaber = Kunde) · Hosting statisch (Netlify) · Formular: Netlify Forms
   Kontaktformular-Mails laufen über unseren Mail-Dienst an die normale Adresse des Kunden (kein Kunden-Mailkonto nötig)
@@ -978,7 +977,7 @@ FAQ = [
     ("Gehört mir die Homepage?", "Ja. Nach der Bezahlung gehört die Homepage dir. Kündigst du das Hosting, bekommst du alle Dateien. Funktionen, die auf unserer Technik laufen, wie der Blog-Login, enden mit dem Hosting."),
     ("Wer liefert Texte und Bilder?", f"Texte und Bilder lieferst du. Keine Zeit? Dann schreiben wir die Texte für {eur(TEXT_PRO_SEITE)} pro Seite, passend zu deiner Branche und mit Unterstützung von KI. Hast du keine eigenen Fotos, suchen wir für {eur(BILD_PRO_SEITE)} pro Seite passende lizenzfreie Bilder aus. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
     ("Wer kümmert sich um Impressum und Datenschutz?", "Die Seiten legen wir an, die Texte lieferst du, zum Beispiel aus einem Rechtstext-Generator. Eine Rechtsberatung leisten wir nicht. Wir sagen dir aber genau, welche Technik deine Seite nutzt, damit du sie dort eintragen kannst."),
-    ("Kann ich später etwas ändern lassen?", "Mit dem Wartungspaket setzen wir bis zu 2 Text- und 2 Bildänderungen im Monat für dich um, in der Regel innerhalb von zwei Werktagen. Ohne Wartungspaket bekommst du für jeden Wunsch vorher einen Festpreis."),  # OFFEN: 2 Werktage
+    ("Kann ich später etwas ändern lassen?", "Mit dem Wartungspaket setzen wir bis zu 2 Text- und 2 Bildänderungen im Monat für dich um. Ohne Wartungspaket bekommst du für jeden Wunsch vorher einen Festpreis."),
     ("Bekomme ich auch E-Mail-Postfächer?", "E-Mail-Postfächer sind nicht enthalten. Wir empfehlen dir einen passenden Anbieter und schicken dir eine Anleitung, wie du ihn mit deiner Domain verbindest."),
     ("Wie lange läuft der Vertrag?", "Hosting und monatliche Optionen laufen mindestens 12 Monate. Danach kannst du sie jeden Monat kündigen."),
 ]
