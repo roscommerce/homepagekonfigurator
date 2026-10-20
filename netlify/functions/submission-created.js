@@ -6,6 +6,7 @@
 //   SMTP_PORT  465 (SSL) oder 587 (STARTTLS)
 //   SMTP_USER  info@homepagekonfigurator.de
 //   SMTP_PASS  Passwort des Postfachs
+//   APP_HOOK_SECRET  gemeinsamer Schlüssel mit dem Automatik-Server (app.homepagekonfigurator.de)
 const nodemailer = require('nodemailer');
 
 const ABSENDER = 'HomepageKonfigurator <info@homepagekonfigurator.de>';
@@ -82,6 +83,20 @@ exports.handler = async (event) => {
   const d = payload.data || {};
   const formular = payload.form_name || d['form-name'];
   if (formular !== 'konfigurator') return { statusCode: 200, body: 'kein Konfigurator' };
+
+  // Anfrage an den Automatik-Server weiterreichen (Prüfung, Telegram an Sven). Fehler hier blockieren die Mail nicht.
+  const { APP_HOOK_URL = 'https://app.homepagekonfigurator.de/hook/anfrage', APP_HOOK_SECRET } = process.env;
+  if (APP_HOOK_SECRET) {
+    try {
+      const r = await fetch(APP_HOOK_URL, {
+        method: 'POST', headers: { 'content-type': 'application/json', 'x-hk-secret': APP_HOOK_SECRET },
+        body: JSON.stringify({ id: payload.id, form_name: formular, data: d }), signal: AbortSignal.timeout(8000),
+      });
+      console.log('Weitergabe an Automatik:', r.status);
+    } catch (e) {
+      console.error('Weitergabe an Automatik fehlgeschlagen:', e.message);
+    }
+  }
 
   const an = einzeilig(d.email || payload.email);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(an)) return { statusCode: 200, body: 'keine gültige E-Mail' };
