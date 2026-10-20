@@ -947,6 +947,7 @@ def konfigurator(b):
         <span class="done-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
         <p class="q">Danke, deine Konfiguration ist da.</p>
         <p>Wir schauen uns deine Angaben an und melden uns per E-Mail, falls wir noch etwas brauchen, zum Beispiel dein Logo oder Fotos. Deinen Entwurf bekommst du innerhalb von 5 Werktagen.</p>
+        <p class="mail-hint">Du bekommst gleich eine Bestätigung mit deiner Zusammenstellung per E-Mail. Falls sie in 10 Minuten nicht da ist, schau bitte in deinem Spam-Ordner nach.</p>
       </div>
 
       <div class="sum" id="sum" aria-live="polite">
