@@ -98,15 +98,17 @@ exports.handler = async (event) => {
   });
   const { text, html } = mailInhalt(d);
   try {
-    await transport.sendMail({
+    const info = await transport.sendMail({
       from: ABSENDER, to: an, replyTo: 'info@homepagekonfigurator.de',
+      bcc: 'info@homepagekonfigurator.de',  // Kopie an uns: so sehen wir, was der Kunde bekommen hat
       subject: 'Deine Homepage-Konfiguration ist da',
       text, html,
     });
-    console.log('Bestätigungsmail gesendet');
+    console.log('Bestätigungsmail gesendet:', info.response, '| angenommen:', (info.accepted || []).length, '| abgelehnt:', (info.rejected || []).length);
   } catch (e) {
     // Fehler nur protokollieren: Die Anfrage selbst ist bei Netlify trotzdem gespeichert
-    console.error('Bestätigungsmail fehlgeschlagen:', e.message);
+    console.error('Bestätigungsmail fehlgeschlagen:', e.code || '', e.responseCode || '', e.message);
+    return { statusCode: 200, body: 'Versand fehlgeschlagen' };
   }
-  return { statusCode: 200, body: 'ok' };
+  return { statusCode: 200, body: 'gesendet' };
 };
