@@ -4,3 +4,5 @@ archiv/
 .DS_Store
 __pycache__/
 node_modules/
+# Interne Planung (nicht öffentlich)
+planung/
