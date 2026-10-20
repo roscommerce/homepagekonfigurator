@@ -199,11 +199,14 @@ document.querySelectorAll('.viewport').forEach(vp => {
     const p = panes[step - 1];
     const groups = [...new Set([...p.querySelectorAll('input[type=radio]')].map(r => r.name))];
     if (groups.some(n => !f.querySelector(`input[name="${n}"]:checked`))) return 'Bitte wähle jeweils eine Antwort aus.';
+    const kurz = [...p.querySelectorAll('textarea[minlength]')].find(el => el.value.trim().length < +el.getAttribute('minlength'));
+    if (kurz) { kurz.focus(); return 'Bitte beschreib deinen Betrieb noch etwas genauer, zwei bis drei Sätze reichen. Daraus entsteht dein Entwurf.'; }
     const bad = [...p.querySelectorAll('[required]')].find(el => !el.checkValidity());
     if (!bad) return '';
     bad.focus();
     if (bad.type === 'email') return 'Bitte gib eine gültige E-Mail-Adresse ein, zum Beispiel name@betrieb.de.';
     if (bad.type === 'checkbox') return 'Bitte bestätige die Datenschutzerklärung.';
+    if (bad.validity.tooShort) return 'Bitte beschreib deinen Betrieb noch etwas genauer, zwei bis drei Sätze reichen. Daraus entsteht dein Entwurf.';
     return 'Bitte fülle die Felder mit * aus.';
   };
   // Zum Schritt wechseln, Fokus mitnehmen und den Konfigurator wieder ins Bild holen

@@ -924,14 +924,16 @@ def konfigurator(b):
       </fieldset>
 
       <fieldset class="pane" data-step="6">
-        <legend>Erzähl uns kurz von dir.</legend>
-        <p class="hint">Stichpunkte reichen völlig.</p>
+        <legend>Erzähl uns von deinem Betrieb.</legend>
+        <p class="hint">Daraus entsteht dein Entwurf. Stichpunkte reichen, je konkreter, desto besser passt er.</p>
         <div class="two">
           <label class="field"><span>Name deines Betriebs *</span><input id="firma" name="firma" required autocomplete="organization"></label>
           <label class="field"><span>Ort *</span><input id="ort" name="ort" required autocomplete="address-level2"></label>
         </div>
         <label class="field"><span>{ex_label}{star}</span><input id="extra" name="extra" placeholder="{ex_ph}"{req}></label>
-        <label class="field"><span>Was bietest du an, und für wen? *</span><textarea id="beschreibung" name="beschreibung" rows="3" required placeholder="Zwei Sätze reichen."></textarea></label>
+        <label class="field"><span>Was bietest du an, und was macht euch aus? *</span>
+          <ul class="leit"><li>Welche Leistungen oder Produkte bietest du an?</li><li>Für wen arbeitest du, und in welcher Gegend?</li><li>Was macht euch besonders? Zum Beispiel Erfahrung, Spezialitäten, Familienbetrieb</li></ul>
+          <textarea id="beschreibung" name="beschreibung" rows="6" required minlength="120" placeholder="Zum Beispiel: Wir sind ein Familienbetrieb in dritter Generation und machen Bäder, Heizungen und Wärmepumpen für Privatkunden im Raum Kassel. Besonders gefragt: barrierefreie Bäder aus einer Hand."></textarea></label>
       </fieldset>
 
       <fieldset class="pane" data-step="7">
