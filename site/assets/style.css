@@ -500,6 +500,7 @@ main section[id]{scroll-margin-top:96px}
 /* FAQ */
 .faq-grid{display:grid;gap:36px}
 @media(min-width:1000px){.faq-grid{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:64px}}
+#branchen-fragen .head h2{font-size:clamp(1.8rem,1.2rem + 2vw,2.5rem);hyphens:manual}
 .faq{display:grid;gap:10px}
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:0 22px;transition:box-shadow .2s}
 .faq details[open]{box-shadow:var(--shadow-s)}

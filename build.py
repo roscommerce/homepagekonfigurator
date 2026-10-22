@@ -554,6 +554,120 @@ def eur(x):
     return f"{x:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") + "\u00a0€"
 
 
+# ---------------------------------------------------------------- Branchen: Preisbeispiel und eigene Fragen
+# Preise kommen aus FUNKTIONEN/SEITE, damit Beispiel, FAQ und Konfigurator nie auseinanderlaufen.
+P = {key: price for key, _, price, _, _ in FUNKTIONEN}
+FN_NAME = {key: name for key, name, _, _, _ in FUNKTIONEN}
+S, T = eur(SEITE), eur(TEXT_PRO_SEITE)
+
+# Preisbeispiel je Branche: (weitere Seiten aus "seiten", Funktionen aus "empfohlen")
+BEISPIEL = {
+    "homepage-fuer-elektriker": (["Leistungen", "Referenzen"], ["anfrage"]),
+    "homepage-fuer-dachdecker": (["Leistungen", "Referenzen"], ["anfrage", "galerie"]),
+    "homepage-fuer-sanitaer-heizung": (["Badsanierung", "Heizung & Wärmepumpe", "Notdienst"], ["anfrage"]),
+    "homepage-fuer-maler": (["Leistungen", "Referenzen"], ["galerie", "anfrage"]),
+    "homepage-fuer-tischler": (["Leistungen", "Referenzen", "Über uns & Werkstatt"], ["anfrage", "galerie"]),
+    "homepage-fuer-gartenbau": (["Gartenplanung", "Gartenpflege", "Referenzen"], ["galerie", "anfrage"]),
+    "homepage-fuer-kfz-werkstaetten": (["Leistungen & Preise", "Reifenservice"], ["termin", "pflege"]),
+    "homepage-fuer-metallbau": (["Leistungen", "Fertigung & Maschinen", "Referenzen"], ["anfrage"]),
+    "homepage-fuer-friseure": (["Leistungen & Preise", "Team"], ["termin", "galerie"]),
+    "homepage-fuer-cafes-baeckereien": (["Speisekarte", "Torten & Catering"], ["pflege", "karte"]),
+    "homepage-fuer-physiotherapeuten": (["Therapien", "Team"], ["termin", "karte"]),
+    "homepage-fuer-blumenlaeden": (["Sträuße & Anlässe", "Hochzeit"], ["anfrage", "galerie"]),
+    "homepage-fuer-coaches": (["Angebote", "Über mich"], ["termin", "blog"]),
+}
+
+# Eigene Fragen je Branche (stehen vor dem allgemeinen Block „Gut zu wissen“). Frage, Antwort.
+FRAGEN = {
+    "homepage-fuer-elektriker": [
+        ("Welche Seiten braucht eine Homepage für Elektriker?", f"Für den Start reichen meist Startseite, Leistungen und Referenzen. Die Startseite ist im Grundpaket für {eur(GRUNDPREIS)} enthalten, jede weitere Seite kostet {S}. Bietest du Photovoltaik oder Wallboxen an, bekommen sie am besten eine eigene Seite, weil Kunden gezielt danach suchen."),
+        ("Lohnt sich eine Karriereseite für meinen Elektrobetrieb?", f"Wenn du Elektronikerinnen, Elektroniker oder Azubis suchst, ja. Viele Bewerber schauen sich vor der Bewerbung die Homepage an. Auf einer Karriereseite ({S}) zeigst du offene Stellen, dein Team und wie man sich bei dir bewirbt."),
+        ("Wie bekomme ich Anfragen, mit denen ich direkt ein Angebot machen kann?", f"Mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}). Kunden geben Objekt, Umfang und Wunschtermin an und schicken zum Beispiel ein Foto vom Zählerschrank mit. Die Anfrage landet direkt in deinem Postfach."),
+        ("Wie zeige ich mein Einzugsgebiet?", f"Wir nennen dein Einzugsgebiet gut sichtbar auf der Startseite, zum Beispiel „Dortmund und 30 km Umkreis“, gern mit den Orten, in denen du oft arbeitest. Den Umkreis gibst du im Konfigurator an. Mit der Anfahrtskarte ({eur(P['karte'])}) finden Kunden außerdem deinen Betrieb."),
+    ],
+    "homepage-fuer-dachdecker": [
+        ("Wie zeige ich meine Dächer am besten?", f"Mit großen Fotos fertiger Projekte, am besten vorher und nachher. In der Bildergalerie ({eur(P['galerie'])}) zeigen wir bis zu 20 Fotos zum Durchblättern. Hast du viele Projekte, bekommen die schönsten eine eigene Referenzseite ({S})."),
+        ("Können Kunden mir Fotos vom Dachschaden schicken?", f"Ja, mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}). Kunden beschreiben den Schaden, laden Fotos hoch und sagen, wie dringend es ist. So siehst du schon vor dem Rückruf, ob es eine kleine Reparatur oder ein größerer Auftrag ist."),
+        ("Soll ich Förderungen für die Dachsanierung auf meiner Homepage erklären?", f"Viele Hausbesitzer fragen sich bei Dämmung und Sanierung, ob es Zuschüsse gibt. Eine eigene Seite „Dachsanierung & Förderung“ ({S}) greift diese Frage auf und zeigt, dass du dich auskennst. Die fachlichen Inhalte lieferst du, auf Wunsch formulieren wir die Texte für {T} pro Seite."),
+        ("Lohnen sich Google-Bewertungen auf meiner Homepage?", f"Wer einen Dachdecker beauftragt, will wissen, ob andere zufrieden waren. Mit der Funktion Google-Bewertungen ({eur(P['bewertungen'])}) zeigen wir deine besten echten Bewertungen auf deiner Seite, mit Link zu deinem Google-Profil. Dafür brauchst du schon ein paar Bewertungen bei Google."),
+    ],
+    "homepage-fuer-sanitaer-heizung": [
+        ("Wie mache ich meinen Notdienst auf der Homepage sichtbar?", f"Deine Notdienst-Nummer steht auf jeder Seite ganz oben und lässt sich am Handy mit einem Tipp anrufen. Wann der Notdienst erreichbar ist, steht direkt daneben. Auf Wunsch bekommt er zusätzlich eine eigene Seite ({S})."),
+        ("Sollte ich Wärmepumpen auf einer eigenen Seite erklären?", f"Wenn du Wärmepumpen einbaust, ja. Hausbesitzer informieren sich vorher meist gründlich und suchen gezielt nach einem Betrieb, der das anbietet. Eine Seite „Heizung & Wärmepumpe“ ({S}) erklärt Ablauf und Leistungen ohne Fachchinesisch."),
+        ("Was sollten Kunden bei einer Anfrage für ein neues Bad mitschicken?", f"Das legst du fest. Im Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}) fragen wir zum Beispiel Raumgröße, Wünsche und Zeitraum ab, dazu Fotos vom jetzigen Bad. Bei einer Heizungsanfrage hilft ein Foto vom Typenschild."),
+        ("Kann ich fertige Bäder als Inspiration zeigen?", f"Ja, in der Bildergalerie ({eur(P['galerie'])}) mit bis zu 20 Fotos deiner fertigen Bäder. Kunden sehen, was möglich ist, und kommen mit konkreteren Vorstellungen zu dir."),
+    ],
+    "homepage-fuer-maler": [
+        ("Wie präsentiere ich meine Malerarbeiten online?", f"Am besten mit Vorher-nachher-Bildern. Die Bildergalerie ({eur(P['galerie'])}) zeigt bis zu 20 Fotos groß zum Durchblättern. Gute Handyfotos reichen oft, achte nur auf Tageslicht und einen aufgeräumten Raum."),
+        ("Können Kunden über die Homepage ein Aufmaß anfragen?", f"Ja. Mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}) geben Kunden Raumgröße, gewünschte Arbeiten und Wunschtermin an und schicken Fotos mit. So weißt du vor dem Termin vor Ort, was dich erwartet."),
+        ("Brauche ich eine eigene Seite für Fassadenarbeiten?", f"Wenn Fassaden ein wichtiger Teil deiner Aufträge sind, lohnt sie sich. Bei einer Fassade wollen Kunden andere Dinge wissen als beim Innenanstrich, zum Beispiel zu Gerüst, Wetter und Ablauf. Eine weitere Seite kostet {S}."),
+        ("Ich habe kaum Fotos von meinen Arbeiten. Was nun?", f"Fang mit dem an, was du hast. Für die übrigen Bereiche suchen wir für {eur(BILD_PRO_SEITE)} pro Seite passende lizenzfreie Bilder aus. Im Wartungspaket ({eur(14.99)} im Monat) tauschen wir dann jeden Monat bis zu 2 Bilder gegen neue Fotos von deinen Baustellen aus."),
+    ],
+    "homepage-fuer-tischler": [
+        ("Wie zeige ich Maßanfertigungen so, dass Kunden Vertrauen fassen?", f"Mit großen Fotos und ein paar Sätzen zu jedem Projekt: Was wollte der Kunde, welches Holz, was war das Besondere? Eine Referenzseite ({S}) gibt deinen Projekten Platz, die Bildergalerie ({eur(P['galerie'])}) zeigt bis zu 20 Fotos."),
+        ("Sollte ich erklären, wie ein Auftrag bei mir abläuft?", f"Ja, das nimmt Kunden viele Fragen ab. Auf einer Seite „Ablauf“ ({S}) zeigst du die Schritte vom ersten Gespräch über Aufmaß und Entwurf bis zur Montage. So wissen Interessenten, was auf sie zukommt."),
+        ("Welche Infos sollte mein Anfrageformular abfragen?", f"Zum Beispiel, was gebaut werden soll, ungefähre Maße, Wunschmaterial und Zeitraum. Im Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}) schicken Kunden auch Fotos vom Raum oder eine Skizze mit."),
+        ("Kann ich meine Werkstatt auf der Homepage zeigen?", f"Gern. Eine Seite „Über uns & Werkstatt“ ({S}) zeigt dein Team, deine Maschinen und wo deine Möbel entstehen. Das schafft Vertrauen bei Kunden und hilft, wenn du Gesellen oder Azubis suchst."),
+    ],
+    "homepage-fuer-gartenbau": [
+        ("Wie zeige ich meine Gartenprojekte am besten?", f"Mit großen Bildern, am besten vorher und nachher. In der Bildergalerie ({eur(P['galerie'])}) zeigen wir bis zu 20 Fotos deiner schönsten Gärten, Terrassen und Wege. Fotografiere fertige Projekte am besten bei gutem Wetter und weichem Licht."),
+        ("Soll ich Gartenplanung und Gartenpflege getrennt darstellen?", f"Meist ja, weil es oft unterschiedliche Kunden sind. Mit eigenen Seiten für Gartenplanung und Gartenpflege (je {S}) findet jeder schnell, was er sucht. Auch Winterdienst oder Baumpflege können einen eigenen Bereich bekommen."),
+        ("Können Kunden Fotos vom Grundstück mitschicken?", f"Ja, mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}). Kunden schicken Fotos, ungefähre Maße und ihre Wünsche. So kannst du einschätzen, ob ein Termin vor Ort nötig ist."),
+        ("Wie halte ich saisonale Angebote aktuell?", f"Im Wartungspaket ({eur(14.99)} im Monat) setzen wir jeden Monat bis zu 2 Text- und 2 Bildänderungen um, zum Beispiel für Frühjahrsschnitt oder Winterdienst. Willst du lieber selbst Neuigkeiten schreiben, gibt es den Blog mit eigenem Login ({eur(P['blog'])})."),
+    ],
+    "homepage-fuer-kfz-werkstaetten": [
+        ("Kann ich meine Preise für Inspektion und HU selbst ändern?", f"Ja, mit der Preisliste zum Selbstpflegen ({eur(P['pflege'])}). Du änderst Preise und Angebote selbst, ganz ohne uns, zum Beispiel für Reifenwechsel oder Klimaservice. So stimmen die Preise auf deiner Seite immer."),
+        ("Können Kunden online einen Werkstatttermin buchen?", f"Ja. Wir binden dein Buchungstool ein ({eur(P['termin'])}), zum Beispiel Calendly oder ein Werkstatt-Tool mit Online-Kalender. Das Tool selbst buchst du beim Anbieter. Kunden fragen dann auch abends oder am Wochenende einen Termin an."),
+        ("Lohnt sich eine eigene Seite für den Reifenservice?", f"Wenn du Reifenwechsel und Einlagerung anbietest, ja. Im Frühjahr und Herbst suchen viele Autofahrer gezielt danach. Auf einer eigenen Seite ({S}) stehen Preise, Einlagerung und wie man einen Termin bekommt."),
+        ("Wie zeige ich, worauf meine Werkstatt spezialisiert ist?", "Gleich auf der Startseite, zum Beispiel „alle Marken“, „Oldtimer“ oder „Elektroautos“. Im Konfigurator fragen wir dich danach, und wir bauen die Seite darum herum. Wer etwas Bestimmtes sucht, sieht so sofort, dass er bei dir richtig ist."),
+    ],
+    "homepage-fuer-metallbau": [
+        ("Wie zeige ich Zertifizierungen wie EN 1090 auf meiner Homepage?", "Wir stellen deine Zertifikate gut sichtbar dar, zum Beispiel auf der Startseite und auf der Seite zu deiner Fertigung. Du schickst uns die Zertifikate oder Logos, die du verwenden darfst. So sehen Architekten und Industriekunden gleich, was dein Betrieb leisten kann."),
+        ("Soll ich meinen Maschinenpark zeigen?", f"Für Geschäftskunden auf jeden Fall. Eine Seite „Fertigung & Maschinen“ ({S}) zeigt, was du fertigen kannst, zum Beispiel Laserschneiden, Kanten oder Schweißen, mit Fotos aus deiner Halle. Wer ein Projekt vergeben will, sieht so schnell, ob es passt."),
+        ("Können Kunden Skizzen oder Fotos zu ihrem Projekt mitschicken?", f"Ja, mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}). Kunden beschreiben ihr Projekt und laden Fotos oder abfotografierte Skizzen hoch. Die Anfrage kommt mit allen Angaben direkt in dein Postfach."),
+        ("Ich arbeite für Privatkunden und Industrie. Wie passt das auf eine Homepage?", "Mit einer klaren Gliederung: Privatkunden finden Treppen, Geländer und Tore, Geschäftskunden Fertigung und Referenzen. Auf der Startseite führen zwei Wege zu den passenden Seiten. Im Konfigurator gibst du an, für wen du vor allem fertigst."),
+    ],
+    "homepage-fuer-friseure": [
+        ("Wie binde ich Online-Terminbuchung für meinen Salon ein?", f"Wir binden dein Buchungstool ein ({eur(P['termin'])}). Nutzt du schon eines, bleibt es dabei. Das Tool selbst buchst du beim Anbieter. Damit der Datenschutz stimmt, lädt der Kalender erst, wenn jemand darauf klickt."),
+        ("Sollte ich meine Preise auf der Homepage zeigen?", f"Viele Kundinnen und Kunden schauen vor dem ersten Besuch nach Preisen. Mit der Preisliste zum Selbstpflegen ({eur(P['pflege'])}) änderst du sie jederzeit selbst. Oder du nimmst das Wartungspaket ({eur(14.99)} im Monat), dann setzen wir Änderungen für dich um."),
+        ("Wie stelle ich mein Team vor?", f"Auf einer eigenen Teamseite ({S}) mit Foto, Namen und Schwerpunkt jeder Person, zum Beispiel Farbe, Locken oder Herrenschnitt. So finden Kundinnen und Kunden gezielt die Person, die zu ihnen passt."),
+        ("Wie zeige ich Schnitte und Farben aus meinem Salon?", f"In der Bildergalerie ({eur(P['galerie'])}) mit bis zu 20 Fotos. Gute Handyfotos vor einer ruhigen Wand reichen völlig. Im Wartungspaket tauschen wir jeden Monat bis zu 2 Bilder aus, so bleibt die Galerie aktuell."),
+    ],
+    "homepage-fuer-cafes-baeckereien": [
+        ("Wie halte ich die Speisekarte auf meiner Homepage aktuell?", f"Mit der Speisekarte zum Selbstpflegen ({eur(P['pflege'])}) änderst du Gerichte und Preise selbst, zum Beispiel den Mittagstisch der Woche. Alternativ setzen wir Änderungen im Wartungspaket ({eur(14.99)} im Monat) für dich um."),
+        ("Können Kunden Torten über die Homepage bestellen?", f"Ja, über ein Formular. Im Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}) geben Kunden Anlass, Größe und Abholtermin an und können ein Foto ihrer Wunschtorte mitschicken. Die Bestellung kommt per E-Mail bei dir an, bestätigen tust du sie selbst."),
+        ("Wie finden Gäste mein Café?", f"Öffnungszeiten und Adresse stehen ganz oben, gut lesbar auch auf dem Handy. Mit der Anfahrtskarte ({eur(P['karte'])}) sehen Gäste sofort, wo du bist. Die Karte lädt erst, wenn jemand darauf klickt, damit der Datenschutz stimmt."),
+        ("Kann ich Veranstaltungen wie Frühstücksbuffets oder Lesungen ankündigen?", f"Ja, auf einer eigenen Seite „Veranstaltungen“ ({S}). Willst du neue Termine selbst eintragen, ist der Blog mit eigenem Login ({eur(P['blog'])}) praktisch: Du schreibst einen Beitrag, und er erscheint auf deiner Homepage."),
+    ],
+    "homepage-fuer-physiotherapeuten": [
+        ("Kann ich Online-Termine für meine Praxis anbieten?", f"Ja, wir binden dein Buchungstool ein ({eur(P['termin'])}), auch das deiner Praxissoftware, wenn es eine Online-Buchung anbietet. Das Tool selbst buchst du beim Anbieter. So kommen weniger Anrufe am Empfang an."),
+        ("Wie erkläre ich meine Therapien verständlich?", f"Auf einer Seite „Therapien“ ({S}) bekommt jede Behandlung einen kurzen Abschnitt: was gemacht wird und wie ein Termin abläuft. Ohne Fachbegriffe, damit Patientinnen und Patienten wissen, was sie erwartet. Die Inhalte lieferst du, auf Wunsch formulieren wir die Texte für {T} pro Seite."),
+        ("Lohnt sich eine Seite mit Infos für Patienten?", f"Ja, sie beantwortet Fragen, die sonst am Telefon landen: Was bringe ich zum ersten Termin mit, wie sage ich ab, wo kann ich parken? Eine weitere Seite kostet {S}."),
+        ("Kann ich Kurse wie Rückenschule auf der Homepage anbieten?", f"Ja, auf einer eigenen Kursseite ({S}) mit Inhalten, Terminen und Preisen. Für die Anmeldung reicht oft das Kontaktformular ({eur(P['kontakt'])}), die Nachricht landet direkt in deinem Postfach."),
+    ],
+    "homepage-fuer-blumenlaeden": [
+        ("Wie zeige ich meine Sträuße online?", f"Groß und bei gutem Licht. Die Bildergalerie ({eur(P['galerie'])}) zeigt bis zu 20 Fotos deiner schönsten Arbeiten zum Durchblättern. Im Wartungspaket ({eur(14.99)} im Monat) tauschen wir jeden Monat bis zu 2 Bilder aus, passend zur Saison."),
+        ("Können Kunden einen Wunschstrauß anfragen?", f"Ja, mit dem Anfrageformular mit Foto-Upload ({eur(P['anfrage'])}). Kunden geben Anlass, Budget, Farben und Liefertermin an und können ein Beispielfoto mitschicken. Die Anfrage landet direkt bei dir, Preis und Termin bestätigst du selbst."),
+        ("Brauche ich eigene Seiten für Hochzeit und Trauer?", f"Oft ja, weil Kunden hier mit ganz anderen Fragen kommen. Brautpaare suchen Inspiration und Beratung, bei Trauerfloristik zählen ein ruhiger Ton und schnelle Hilfe. Jede eigene Seite kostet {S}."),
+        ("Wie zeige ich, wohin ich liefere?", f"Liefergebiet und Öffnungszeiten stehen gut sichtbar auf jeder Seite. Mit der Anfahrtskarte ({eur(P['karte'])}) finden auch Kunden, die lieber selbst abholen, direkt zu deinem Laden."),
+    ],
+    "homepage-fuer-coaches": [
+        ("Wie bekomme ich über meine Homepage Erstgespräche?", f"Wir binden deinen Kalender ein ({eur(P['termin'])}), zum Beispiel Calendly. Interessenten wählen direkt einen freien Termin, ganz ohne E-Mail-Pingpong. Der Weg zum Erstgespräch ist von jeder Seite aus mit einem Klick erreichbar."),
+        ("Wie stelle ich meine Coaching-Angebote dar?", f"Am besten als klare Pakete: für wen, wie es abläuft, was am Ende herauskommt. Auf einer Seite „Angebote“ ({S}) bekommt jedes Paket einen eigenen Bereich. Preise kannst du nennen, musst du aber nicht."),
+        ("Lohnt sich ein Blog für Coaches?", f"Wenn du gern schreibst, ja. Beiträge zeigen, wie du denkst, bevor jemand mit dir spricht. Mit dem Blog mit eigenem Login ({eur(P['blog'])}) veröffentlichst du sie selbst. Hast du nur selten Zeit dafür, lass ihn lieber weg."),
+        ("Was gehört auf die Seite „Über mich“?", f"Wie du zu deiner Arbeit gekommen bist, wie du arbeitest und für wen, dazu ein gutes Foto von dir. Beim Coaching entscheiden sich Menschen vor allem für dich als Person. Die Seite kostet {S}, die Texte schreiben wir auf Wunsch für {T}."),
+    ],
+}
+
+# Prüfen, dass Beispiele nur Seiten/Funktionen nutzen, die der Konfigurator der Branche anbietet
+for _b in BRANCHEN:
+    if _b["mock"] is None:
+        continue
+    _seiten, _fns = BEISPIEL[_b["slug"]]
+    assert set(_seiten) <= set(_b["seiten"]) and set(_fns) <= set(_b["empfohlen"]), _b["slug"]
+    assert len(FRAGEN[_b["slug"]]) == 4, _b["slug"]
+
+
 # Erklärungen für die Infobuttons (Fachbegriffe)
 TIPS = {
     "hosting": ("Hosting", "Hosting ist der Platz im Internet, auf dem deine Homepage liegt. Ohne Hosting ist die Seite nicht erreichbar. Eine verschlüsselte Verbindung (SSL) ist inklusive."),
@@ -628,6 +742,7 @@ STYLE_INLINE = _css_klein((OUT / "assets" / "style.css").read_text(encoding="utf
 
 
 def head(title, desc, root, mock_keys=(), path="", extra=""):
+    path = path[:-5] if path.endswith(".html") else path  # saubere Adresse ohne .html
     # Schriften liegen lokal (assets/fonts.css); der Browser lädt nur die, die eine Seite wirklich nutzt.
     return f"""<!doctype html>
 <html lang="de">
@@ -738,14 +853,14 @@ def week():
 """
 
 
-def pricing():
+def pricing(b=None):
     inkl = ["Startseite, individuell gestaltet", f"Bis zu 3 Rechtsseiten {tip('rechtsseiten')}", "Für Handy und Computer optimiert",
             "Entwurf kostenlos in 5 Werktagen", "2 Korrekturrunden vor dem Livegang", f"Hosting mit SSL {tip('hosting')}"]
-    once = [(f"Weitere Seite {tip('inhaltsseite')}", eur(SEITE)), ("Kontaktformular", eur(99)),
-            (f"Blog mit eigenem Login {tip('blog')}", eur(149)), ("Preisliste oder Speisekarte zum Selbstpflegen", eur(149)),
-            ("Anfrageformular mit Foto-Upload", eur(149)), (f"Terminbuchung oder Anfahrtskarte {tip('einbindung')}", "je " + eur(49)),
-            ("Bildergalerie<small>bis zu 20 Fotos</small>", eur(49)),
-            ("Google-Bewertungen<small>ausgewählte echte Bewertungen mit Link zu deinem Google-Profil</small>", eur(99)),
+    once = [(f"Weitere Seite {tip('inhaltsseite')}", eur(SEITE)), ("Kontaktformular", eur(P["kontakt"])),
+            (f"Blog mit eigenem Login {tip('blog')}", eur(P["blog"])), ("Preisliste oder Speisekarte zum Selbstpflegen", eur(P["pflege"])),
+            ("Anfrageformular mit Foto-Upload", eur(P["anfrage"])), (f"Terminbuchung oder Anfahrtskarte {tip('einbindung')}", "je " + eur(P["termin"])),
+            ("Bildergalerie<small>bis zu 20 Fotos</small>", eur(P["galerie"])),
+            ("Google-Bewertungen<small>ausgewählte echte Bewertungen mit Link zu deinem Google-Profil</small>", eur(P["bewertungen"])),
             (f"Texte schreiben wir für dich {tip('texte')}<small>passend zu deiner Branche, mit KI erstellt</small>", eur(TEXT_PRO_SEITE) + " pro Seite"),
             (f"Lizenzfreie Bilder für dich {tip('bilder')}<small>falls du keine eigenen Fotos hast</small>", eur(BILD_PRO_SEITE) + " pro Seite")]
     monthly = [(f"Neue Domain oder Umzug zu uns {tip('domain')}", eur(4.99)), ("Eigene Domain behalten", eur(0)),
@@ -753,8 +868,16 @@ def pricing():
     li_inkl = "".join(f"<li>{CK}<span>{x}</span></li>" for x in inkl)
     li_once = "".join(f"<li><span>{n}</span><b>{p}</b></li>" for n, p in once)
     li_month = "".join(f"<li><span>{n}</span><b>{p}</b></li>" for n, p in monthly)
-    bsp_once = GRUNDPREIS + 2 * SEITE + 99
-    bsp_month = HOSTING + 4.99
+    # Rechenbeispiel: auf Branchenseiten passend zur Branche, sonst (Startseite, „Andere Branche“) Friseursalon
+    if b and b["slug"] in BEISPIEL:
+        seiten, fns = BEISPIEL[b["slug"]]
+        bsp_titel = f"Beispiel {b['name']}"
+        bsp_text = " + ".join(["Startseite"] + seiten + [FN_NAME[k] for k in fns])
+    else:
+        seiten, fns = ["Leistungen & Preise", "Team"], ["kontakt"]
+        bsp_titel, bsp_text = "Beispiel Friseursalon", "Startseite + 2 weitere Seiten + Kontaktformular"
+    bsp_once = GRUNDPREIS + len(seiten) * SEITE + sum(P[k] for k in fns)
+    bsp_month = HOSTING + DOMAIN_OPT[0][3]
     return f"""
 <section class="sec tint" id="preise" style="padding-top:0">
   <div class="wrap">
@@ -776,8 +899,8 @@ def pricing():
       </div>
     </div>
     <div class="example rv">
-      <p class="ex-title">Beispiel Friseursalon</p>
-      <p><span>Startseite + 2 weitere Seiten + Kontaktformular</span><b>{eur(bsp_once)} einmalig</b></p>
+      <p class="ex-title">{escape(bsp_titel)}</p>
+      <p><span>{escape(bsp_text)}</span><b>{eur(bsp_once)} einmalig</b></p>
       <p><span>Hosting + neue Domain</span><b>{eur(bsp_month)} im Monat</b></p>
     </div>
     <p class="fine">Alle Preise zzgl. MwSt. Keine Einrichtungsgebühr. Hosting und monatliche Optionen haben eine Mindestlaufzeit von 12 Monaten, danach sind sie monatlich kündbar. Nach der Bezahlung gehört die Homepage dir.</p>
@@ -985,12 +1108,12 @@ FAQ = [
 ]
 
 
-def faq():
-    items = "\n".join(f"      <details><summary>{q}</summary><p>{a}</p></details>" for q, a in FAQ)
+def faq(fragen=FAQ, titel="Gut <strong>zu wissen.</strong>", sid="fragen", cls="sec tint"):
+    items = "\n".join(f"      <details><summary>{q}</summary><p>{a}</p></details>" for q, a in fragen)
     return f"""
-<section class="sec tint" id="fragen">
+<section class="{cls}" id="{sid}">
   <div class="wrap faq-grid">
-    <div class="head rv" style="align-content:start"><h2>Gut <strong>zu wissen.</strong></h2></div>
+    <div class="head rv" style="align-content:start"><h2>{titel}</h2></div>
     <div class="faq rv">
 {items}
     </div>
@@ -1173,6 +1296,7 @@ def page_branche(b):
         feats_h = f"Das braucht eine Homepage für <strong>{h1t}.</strong>"
         start_h = f"Deine Homepage für <strong>{h1t}.</strong>"
 
+    branchen_faq = "" if sonst else faq(FRAGEN[b["slug"]], f"Häufige Fragen zur <strong>Homepage für {h1t}.</strong>", "branchen-fragen", "sec")
     html = head(title, desc, root, keys, f"{b['slug']}.html")
     html += header(root, False)
     html += f"""
@@ -1204,7 +1328,7 @@ def page_branche(b):
     <ul class="feats rv">{feats}</ul>
   </div>
 </section>
-{week()}{pricing()}
+{week()}{pricing(b)}
 <section class="sec start" id="konfigurator">
   <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap start-grid">
@@ -1220,7 +1344,7 @@ def page_branche(b):
     </div>
   </div>
 </section>
-{faq()}
+{branchen_faq}{faq()}
 <section class="sec tint" style="padding-top:0">
   <div class="wrap">
     <div class="head rv" style="margin-bottom:0"><h2>Andere <strong>Branchen.</strong></h2></div>
@@ -1505,8 +1629,16 @@ FAVICON = logo_svg("x").replace('<svg class="logo-ic"', '<svg xmlns="http://www.
     ' aria-hidden="true"', "").replace('class="lw"', 'fill="#fff"').replace('class="lb"', 'fill="#e3e1ee"').replace('class="lr" ', 'stroke="#fff" stroke-width="2.4" ')
 
 
+def sauber(html):
+    """Interne Links ohne .html: homepage-fuer-maler.html#start → /homepage-fuer-maler#start, index.html → /"""
+    def ziel(m):
+        name = m.group(2)
+        return f'{m.group(1)}="/{"" if name == "index" else name}'
+    return re.sub(r'(href|action)="/?([a-z0-9-]+)\.html', ziel, html)
+
+
 def write(path, html, root):
-    path.write_text(html.replace(ROOT, root), encoding="utf-8")
+    path.write_text(sauber(html.replace(ROOT, root)), encoding="utf-8")
 
 
 def main():
@@ -1525,7 +1657,7 @@ def main():
 
     # Suchmaschinen: Sitemap und robots.txt
     heute = time.strftime("%Y-%m-%d")
-    urls = "".join(f"  <url><loc>{DOMAIN}/{'' if p.name == 'index.html' else p.name}</loc><lastmod>{heute}</lastmod></url>\n" for p, _, _ in pages)
+    urls = "".join(f"  <url><loc>{DOMAIN}/{'' if p.name == 'index.html' else p.stem}</loc><lastmod>{heute}</lastmod></url>\n" for p, _, _ in pages)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
     # Netlify: Bilder, Schriften, CSS und JS lange zwischenspeichern (CSS/JS haben ?v=…, neue Fassungen haben also eine neue Adresse)
     jahr = "  Cache-Control: public, max-age=31536000, immutable\n"
@@ -1533,9 +1665,12 @@ def main():
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
 
     # Netlify: Zweitdomain und www per 301 auf die Hauptdomain
+    # und jede .html-Adresse auf die saubere Adresse ohne .html (Netlify liefert /seite intern aus seite.html, daher keine Schleife)
     host = DOMAIN.split("//")[1]
+    alte = [p.stem for p, _, _ in pages if p.name != "index.html"] + ["danke"]
     (OUT / "_redirects").write_text(
-        "".join(f"https://{d}/* {DOMAIN}/:splat 301!\n" for d in ("homepage-konfigurator.de", "www.homepage-konfigurator.de", f"www.{host}")),
+        "".join(f"https://{d}/* {DOMAIN}/:splat 301!\n" for d in ("homepage-konfigurator.de", "www.homepage-konfigurator.de", f"www.{host}"))
+        + "/index.html / 301!\n" + "".join(f"/{s}.html /{s} 301!\n" for s in alte),
         encoding="utf-8")
 
     print(f"Fertig: {len(pages) + 2} Seiten in {OUT}")

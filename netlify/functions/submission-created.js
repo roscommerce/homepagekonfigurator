@@ -70,7 +70,7 @@ function mailInhalt(d) {
 <p style="margin:0 0 22px;font-size:16px;line-height:1.6;color:#3d4256">Logo oder Fotos kannst du uns schon jetzt schicken: Antworte einfach auf diese Mail und häng sie an.</p>
 <p style="margin:0;font-size:16px;line-height:1.6;color:#3d4256">Viele Grüße<br>Sven von HomepageKonfigurator</p>
 </td></tr>
-<tr><td style="padding:18px 30px;background:#12152b;color:#c9cbe0;font-size:12px;line-height:1.6">HomepageKonfigurator · Sven Rosenthal · In der Landwehr 21 · 34376 Immenhausen<br><a href="${SEITE}" style="color:#c9cbe0">homepagekonfigurator.de</a> · <a href="${SEITE}/impressum.html" style="color:#c9cbe0">Impressum</a> · <a href="${SEITE}/datenschutz.html" style="color:#c9cbe0">Datenschutz</a></td></tr>
+<tr><td style="padding:18px 30px;background:#12152b;color:#c9cbe0;font-size:12px;line-height:1.6">HomepageKonfigurator · Sven Rosenthal · In der Landwehr 21 · 34376 Immenhausen<br><a href="${SEITE}" style="color:#c9cbe0">homepagekonfigurator.de</a> · <a href="${SEITE}/impressum" style="color:#c9cbe0">Impressum</a> · <a href="${SEITE}/datenschutz" style="color:#c9cbe0">Datenschutz</a></td></tr>
 </table></td></tr></table></body></html>`;
 
   return { text, html };
