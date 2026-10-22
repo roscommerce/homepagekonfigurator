@@ -534,9 +534,9 @@ FUNKTIONEN = [
 ]
 # Wert, Titel, Erklärung, monatlicher Preis
 DOMAIN_OPT = [
-    ("Neue Domain", "Ich brauche eine neue Domain", "Wir registrieren sie auf deinen Namen.", 4.99),
+    ("Neue Domain", "Ich brauche eine neue Domain", "Wir registrieren sie auf deinen Namen. Der Preis gilt für .de-Domains, andere Endungen wie .com nennen wir dir im Angebot.", 4.99),
     ("Domain behalten", "Ich habe eine und behalte sie bei meinem Anbieter", "Wir schicken dir die Einstellungen, die du dort einträgst.", 0.0),
-    ("Domain-Umzug", "Ich habe eine und möchte sie zu euch umziehen", "Danach kümmern wir uns um alles.", 4.99),
+    ("Domain-Umzug", "Ich habe eine und möchte sie zu euch umziehen", "Danach kümmern wir uns um alles. Der Preis gilt für .de-Domains, andere Endungen nennen wir dir im Angebot.", 4.99),
     ("Domain unklar", "Weiß ich noch nicht", "Wir klären das per E-Mail mit dir.", 0.0),
 ]
 SERVICE_OPT = [
@@ -671,7 +671,7 @@ for _b in BRANCHEN:
 # Erklärungen für die Infobuttons (Fachbegriffe)
 TIPS = {
     "hosting": ("Hosting", "Hosting ist der Platz im Internet, auf dem deine Homepage liegt. Ohne Hosting ist die Seite nicht erreichbar. Eine verschlüsselte Verbindung (SSL) ist inklusive."),
-    "domain": ("Domain", "Die Domain ist die Adresse deiner Homepage, zum Beispiel friseur-mueller.de."),
+    "domain": ("Domain", "Die Domain ist die Adresse deiner Homepage, zum Beispiel friseur-mueller.de. Unser Domainpreis gilt für .de-Domains, andere Endungen sind auf Anfrage möglich."),
     "dns": ("DNS-Einstellungen", "DNS-Einstellungen verbinden deine Domain mit deiner Homepage. Du trägst sie einmal bei deinem Domain-Anbieter ein, wir sagen dir genau, was."),
     "umzug": ("Domain-Umzug", "Deine Domain wechselt von deinem bisherigen Anbieter zu uns. Danach kümmern wir uns um alles. Wir sagen dir, wann du beim alten Anbieter kündigen kannst."),
     "monitoring": ("Monitoring", "Wir prüfen jede Stunde automatisch, ob deine Seite erreichbar ist. Fällt sie aus, werden wir sofort benachrichtigt und kümmern uns innerhalb von 48 Stunden an Werktagen darum."),
@@ -863,7 +863,7 @@ def pricing(b=None):
             ("Google-Bewertungen<small>ausgewählte echte Bewertungen mit Link zu deinem Google-Profil</small>", eur(P["bewertungen"])),
             (f"Texte schreiben wir für dich {tip('texte')}<small>passend zu deiner Branche, mit KI erstellt</small>", eur(TEXT_PRO_SEITE) + " pro Seite"),
             (f"Lizenzfreie Bilder für dich {tip('bilder')}<small>falls du keine eigenen Fotos hast</small>", eur(BILD_PRO_SEITE) + " pro Seite")]
-    monthly = [(f"Neue Domain oder Umzug zu uns {tip('domain')}", eur(4.99)), ("Eigene Domain behalten", eur(0)),
+    monthly = [(f"Neue .de-Domain oder Umzug zu uns {tip('domain')}<small>andere Endungen auf Anfrage, Preis im Angebot</small>", eur(DOMAIN_OPT[0][3])), ("Eigene Domain behalten", eur(0)),
                (f"Monitoring &amp; Ausfallmanagement {tip('monitoring')}", eur(4.99)), (f"Wartung {tip('wartung')}", eur(14.99))]
     li_inkl = "".join(f"<li>{CK}<span>{x}</span></li>" for x in inkl)
     li_once = "".join(f"<li><span>{n}</span><b>{p}</b></li>" for n, p in once)
@@ -901,7 +901,7 @@ def pricing(b=None):
     <div class="example rv">
       <p class="ex-title">{escape(bsp_titel)}</p>
       <p><span>{escape(bsp_text)}</span><b>{eur(bsp_once)} einmalig</b></p>
-      <p><span>Hosting + neue Domain</span><b>{eur(bsp_month)} im Monat</b></p>
+      <p><span>Hosting + neue .de-Domain</span><b>{eur(bsp_month)} im Monat</b></p>
     </div>
     <p class="fine">Alle Preise zzgl. MwSt. Keine Einrichtungsgebühr. Hosting und monatliche Optionen haben eine Mindestlaufzeit von 12 Monaten, danach sind sie monatlich kündbar. Nach der Bezahlung gehört die Homepage dir.</p>
   </div>
@@ -1098,7 +1098,7 @@ FAQ = [
     ("Warum muss ich Hosting buchen?", "Ohne Hosting ist deine Homepage im Internet nicht erreichbar. Wir kümmern uns um schnelle Server und eine verschlüsselte Verbindung, damit du dich um nichts kümmern musst."),
     ("Brauche ich einen Beratungstermin?", "Nein. Du stellst dir deine Homepage im Konfigurator zusammen, siehst dir den Entwurf über einen Link an und markierst Änderungen direkt auf der Seite. Fragen beantworten wir per E-Mail."),
     ("Was ist, wenn mir der Entwurf nicht gefällt?", "Der Entwurf ist kostenlos und unverbindlich. Solange du nichts bestellt hast, zahlst du nichts. Nach der Bestellung sind zwei Korrekturrunden inklusive."),
-    ("Was ist mit meiner Domain?", f"Du hast drei Möglichkeiten: Wir registrieren eine neue Domain auf deinen Namen ({eur(4.99)} im Monat). Du behältst deine Domain bei deinem Anbieter, dann schicken wir dir die Einstellungen zum Eintragen, das kostet nichts. Oder deine Domain zieht zu uns um ({eur(4.99)} im Monat)."),
+    ("Was ist mit meiner Domain?", f"Du hast drei Möglichkeiten: Wir registrieren eine neue Domain auf deinen Namen. Du behältst deine Domain bei deinem Anbieter, dann schicken wir dir die Einstellungen zum Eintragen, das kostet nichts. Oder deine Domain zieht zu uns um. Für eine .de-Domain zahlst du bei uns {eur(DOMAIN_OPT[0][3])} im Monat. Andere Endungen wie .com oder .eu sind auf Anfrage möglich, den Preis nennen wir dir im Angebot."),
     ("Gehört mir die Homepage?", "Ja. Nach der Bezahlung gehört die Homepage dir. Kündigst du das Hosting, bekommst du alle Dateien. Funktionen, die auf unserer Technik laufen, wie der Blog-Login, enden mit dem Hosting."),
     ("Wer liefert Texte und Bilder?", f"Texte und Bilder lieferst du. Keine Zeit? Dann schreiben wir die Texte für {eur(TEXT_PRO_SEITE)} pro Seite, passend zu deiner Branche und mit Unterstützung von KI. Hast du keine eigenen Fotos, suchen wir für {eur(BILD_PRO_SEITE)} pro Seite passende lizenzfreie Bilder aus. Vor dem Onlinegang prüfst du alle Inhalte und gibst sie frei."),
     ("Wer kümmert sich um Impressum und Datenschutz?", "Die Seiten legen wir an, die Texte lieferst du, zum Beispiel aus einem Rechtstext-Generator. Eine Rechtsberatung leisten wir nicht. Wir sagen dir aber genau, welche Technik deine Seite nutzt, damit du sie dort eintragen kannst."),
@@ -1433,7 +1433,7 @@ AGB = f"""
 
 <h2>§ 4 Hosting und Domain</h2>
 <p>(1) Für den Betrieb der Homepage ist unser Hosting erforderlich. Es umfasst die Bereitstellung der Homepage bei einem spezialisierten Hosting-Dienstleister und eine verschlüsselte Verbindung (SSL). Eine ständige Verfügbarkeit können wir nicht garantieren; kurze Unterbrechungen, etwa für Wartungsarbeiten des Dienstleisters, sind möglich.</p>
-<p>(2) Auf Wunsch registrieren wir eine neue Domain auf deinen Namen als Inhaber oder übernehmen deine bestehende Domain (Umzug). Bei Vertragsende erhältst du die Daten, die du für einen Umzug zu einem anderen Anbieter brauchst.</p>
+<p>(2) Auf Wunsch registrieren wir eine neue Domain auf deinen Namen als Inhaber oder übernehmen deine bestehende Domain (Umzug). Der Preis laut Preisliste gilt für Domains mit der Endung .de. Für andere Endungen nennen wir dir den Preis im Angebot. Bei Vertragsende erhältst du die Daten, die du für einen Umzug zu einem anderen Anbieter brauchst.</p>
 <p>(3) Behältst du deine Domain bei deinem Anbieter, schicken wir dir die nötigen Einstellungen. Das Eintragen und die Kosten bei deinem Anbieter liegen bei dir. E-Mail-Postfächer sind nicht Teil unserer Leistungen.</p>
 
 <h2>§ 5 Monitoring und Wartung</h2>
