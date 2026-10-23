@@ -1057,6 +1057,9 @@ def konfigurator(b):
         <label class="field"><span>Was bietest du an, und was macht euch aus? *</span>
           <ul class="leit"><li>Welche Leistungen oder Produkte bietest du an?</li><li>Für wen arbeitest du, und in welcher Gegend?</li><li>Was macht euch besonders? Zum Beispiel Erfahrung, Spezialitäten, Familienbetrieb</li></ul>
           <textarea id="beschreibung" name="beschreibung" rows="6" required minlength="120" placeholder="Zum Beispiel: Wir sind ein Familienbetrieb in dritter Generation und machen Bäder, Heizungen und Wärmepumpen für Privatkunden im Raum Kassel. Besonders gefragt: barrierefreie Bäder aus einer Hand."></textarea></label>
+        <label class="field"><span>Sonderwünsche (optional)</span>
+          <span class="leit-txt">Dir fehlt eine Funktion oder du hast eine besondere Idee? Schreib sie einfach dazu. Wir prüfen, ob wir das umsetzen können, und nennen dir den Preis im Angebot.</span>
+          <textarea id="sonderwuensche" name="sonderwuensche" rows="3" maxlength="2000" placeholder="Zum Beispiel: Mehrsprachige Seite, Gutscheine verkaufen, Anbindung an mein Warenwirtschaftssystem"></textarea></label>
       </fieldset>
 
       <fieldset class="pane" data-step="7">

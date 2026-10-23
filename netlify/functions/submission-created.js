@@ -21,6 +21,9 @@ function mailInhalt(d) {
   const zeilen = String(d.zusammenfassung || '').split('\n').map(z => z.trim()).filter(Boolean).slice(0, 40)
     .map(z => { const i = z.lastIndexOf(': '); return i > 0 ? [z.slice(0, i), z.slice(i + 2)] : [z, '']; });
 
+  const wunsch = String(d.sonderwuensche || '').trim().slice(0, 2000);
+  const WUNSCH_HINWEIS = 'Wir prüfen, ob wir das umsetzen können, und nennen dir den Preis im Angebot.';
+
   const text = [
     `Hallo ${vorname},`,
     '',
@@ -33,6 +36,7 @@ function mailInhalt(d) {
     `Monatlich: ${d.preis_monatlich || '–'}`,
     'Alle Preise zzgl. MwSt.',
     '',
+    ...(wunsch ? ['Deine Sonderwünsche:', wunsch, WUNSCH_HINWEIS, ''] : []),
     'So geht es weiter:',
     '1. Wir schauen uns deine Angaben an und melden uns, falls noch etwas fehlt.',
     '2. Deinen kostenlosen Entwurf der Startseite bekommst du innerhalb von 5 Werktagen.',
@@ -62,6 +66,9 @@ function mailInhalt(d) {
 <td style="padding:16px 18px"><div style="font-size:13px;color:#565c72">Einmalig</div><div style="font-size:22px;font-weight:700">${esc(d.preis_einmalig || '–')}</div></td>
 <td style="padding:16px 18px"><div style="font-size:13px;color:#565c72">Monatlich</div><div style="font-size:22px;font-weight:700">${esc(d.preis_monatlich || '–')}</div></td></tr></table>
 <p style="margin:8px 0 26px;font-size:13px;color:#6b7086">Alle Preise zzgl. MwSt.</p>
+${wunsch ? `<p style="margin:0 0 8px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7086">Deine Sonderwünsche</p>
+<p style="margin:0 0 6px;font-size:16px;line-height:1.6;color:#3d4256;white-space:pre-line">${esc(wunsch)}</p>
+<p style="margin:0 0 26px;font-size:14px;line-height:1.5;color:#6b7086">${WUNSCH_HINWEIS}</p>` : ''}
 <p style="margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7086">So geht es weiter</p>
 <ol style="margin:0 0 22px;padding-left:20px;font-size:16px;line-height:1.6;color:#3d4256">
 <li>Wir schauen uns deine Angaben an und melden uns, falls noch etwas fehlt.</li>
